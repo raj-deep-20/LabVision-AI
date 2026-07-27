@@ -1,0 +1,17 @@
+backend/.env
+backend/venv/
+backend/__pycache__/
+backend/**/*.pyc
+backend/**/*.pyo
+backend/**/*.pyd
+backend/.pytest_cache/
+frontend/node_modules/
+frontend/.pnp.*
+frontend/.DS_Store
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.DS_Store
+.idea/
+.vscode/
