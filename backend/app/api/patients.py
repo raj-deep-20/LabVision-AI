@@ -37,8 +37,14 @@ def add_patient(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    return create_patient(db, patient)
-
+    try:
+        new_patient = create_patient(db, patient)
+        return new_patient
+    except ValueError as e:
+        raise HTTPException(
+            status_code=400,
+            detail=str(e)
+        )
 
 @router.get(
     "/",

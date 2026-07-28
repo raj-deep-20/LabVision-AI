@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.patient import Patient
 from app.schemas.patient import PatientCreate
-from uuid import uuid4
 
 
 def generate_patient_id(db):
@@ -19,6 +18,16 @@ def generate_patient_id(db):
 
 
 def create_patient(db: Session, patient: PatientCreate):
+    # Check duplicate BEFORE inserting
+    existing = (
+        db.query(Patient)
+        .filter(Patient.phone == patient.phone)
+        .first()
+    )
+
+    if existing:
+        raise ValueError("Phone number already exists.")
+
     new_patient = Patient(
         patient_id=generate_patient_id(db),
         name=patient.name,
@@ -34,16 +43,7 @@ def create_patient(db: Session, patient: PatientCreate):
     db.commit()
     db.refresh(new_patient)
 
-    existing = (
-    db.query(Patient)
-    .filter(Patient.phone == patient.phone)
-    .first()
-    )
-
-    if existing:
-        raise ValueError("Phone number already exists.")
     return new_patient
-
 
 def get_all_patients(db: Session):
     return db.query(Patient).all()

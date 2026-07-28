@@ -11,9 +11,11 @@ security = HTTPBearer()
 
 
 def get_current_user(
-    token: str = Depends(security),
+    credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ):
+
+    token = credentials.credentials
 
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -22,7 +24,6 @@ def get_current_user(
     )
 
     try:
-
         payload = jwt.decode(
             token,
             SECRET_KEY,

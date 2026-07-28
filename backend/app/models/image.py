@@ -7,25 +7,26 @@ from app.core.database import Base
 class Image(Base):
     __tablename__ = "images"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
 
     sample_id = Column(
         Integer,
-        ForeignKey("samples.id", ondelete="CASCADE")
+        ForeignKey("samples.id", ondelete="CASCADE"),
+        nullable=False
     )
 
-    original_path = Column(String(300))
+    image_name = Column(String(255), nullable=False)
 
-    annotated_path = Column(String(300))
+    image_path = Column(String(500), nullable=False)
 
     sample = relationship(
         "Sample",
         back_populates="images"
     )
-
+    
     prediction = relationship(
-        "Prediction",
-        back_populates="image",
-        uselist=False,
-        cascade="all, delete-orphan"
-    )
+            "Prediction",
+            back_populates="image",
+            uselist=False,
+            cascade="all, delete-orphan"
+        )

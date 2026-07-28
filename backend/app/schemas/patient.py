@@ -29,8 +29,5 @@ class PatientResponse(BaseModel):
     doctor: str
     visit_date: date
 
-    created_at: date
-    updated_at: date
-
     class Config:
         from_attributes = True
