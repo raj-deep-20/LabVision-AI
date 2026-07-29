@@ -1,16 +1,12 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-import os
-
 from app.api.auth import router as auth_router
 from app.core.database import Base, engine
 import app.models
+from fastapi.middleware.cors import CORSMiddleware
 from app.api import predictions
 from app.api.samples import router as sample_router
 from app.api.patients import router as patient_router
 from app.api.images import router as image_router
-
 print("Creating tables...")
 Base.metadata.create_all(bind=engine)
 print("Tables created!")
@@ -18,17 +14,15 @@ print("Tables created!")
 app = FastAPI(
     title="LabVision AI",
 )
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:5173",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-os.makedirs("uploads", exist_ok=True)
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 @app.get("/")
 def home():
