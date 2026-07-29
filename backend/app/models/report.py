@@ -5,16 +5,18 @@ from app.core.database import Base
 
 
 class Report(Base):
+
     __tablename__ = "reports"
 
     id = Column(Integer, primary_key=True)
 
     prediction_id = Column(
         Integer,
-        ForeignKey("predictions.id", ondelete="CASCADE")
+        ForeignKey("predictions.id", ondelete="CASCADE"),
+        unique=True
     )
 
-    pdf_path = Column(String(300))
+    remarks = Column(String)
 
     prediction = relationship(
         "Prediction",

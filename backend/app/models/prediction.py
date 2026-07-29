@@ -1,7 +1,4 @@
-from sqlalchemy import Column
-from sqlalchemy import Integer
-from sqlalchemy import Float
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, Integer, Float, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from app.core.database import Base
@@ -11,25 +8,21 @@ class Prediction(Base):
 
     __tablename__ = "predictions"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
 
     image_id = Column(
         Integer,
-        ForeignKey("images.id")
+        ForeignKey("images.id", ondelete="CASCADE"),
+        unique=True
     )
 
-    rbc_count = Column(Integer)
-
-    wbc_count = Column(Integer)
-
-    platelet_count = Column(Integer)
+    prediction_label = Column(String(50))
 
     confidence = Column(Float)
 
     image = relationship(
         "Image",
-        back_populates="prediction",
-        uselist=False
+        back_populates="prediction"
     )
 
     report = relationship(
