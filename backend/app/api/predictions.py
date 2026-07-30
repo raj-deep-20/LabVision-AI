@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.services.prediction_service import create_prediction
+from app.services.prediction_service import predict_image
 from app.schemas.prediction import PredictionResponse
 
 router = APIRouter(
@@ -21,7 +21,7 @@ def predict(
 ):
 
     try:
-        return create_prediction(db, image_id)
+        return predict_image(db, image_id)
 
     except ValueError as e:
         raise HTTPException(

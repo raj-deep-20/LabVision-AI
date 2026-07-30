@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -14,9 +15,21 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <BrowserRouter>
+      <Helmet>
+        <title>LabVision AI | Clinical imaging workspace</title>
+        <meta
+          name="description"
+          content="LabVision AI is a clinical imaging workspace for patient management, sample tracking, image uploads, and AI-assisted blood smear prediction."
+        />
+        <meta
+          name="keywords"
+          content="LabVision AI, clinical imaging, blood smear, pathology workflow, AI prediction, patient registry"
+        />
+      </Helmet>
       <Routes>
-        <Route path="/" element={<Register />} />
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
@@ -28,6 +41,8 @@ function App() {
             <Route path="/reports" element={<Reports />} />
           </Route>
         </Route>
+
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
   );
