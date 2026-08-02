@@ -20,6 +20,12 @@
     overflow-x: hidden;
   }
 
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+    }
+  }
+
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
