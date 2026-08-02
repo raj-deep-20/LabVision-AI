@@ -21,7 +21,7 @@ const cards = [
     badge: "Live Status",
   },
   {
-    title: "Image Ingestion",
+    title: "Image Upload",
     description: "Upload blood smear microscopic images for AI feature extraction.",
     to: "/upload",
     icon: FiUploadCloud,
@@ -40,7 +40,7 @@ const cards = [
   },
   {
     title: "Clinical Reports",
-    description: "Review automated PDF reports, audit summaries, and export diagnostic files.",
+    description: "DOWNLOAD automated PDF reports and diagnostic files.",
     to: "/reports",
     icon: FiFileText,
     color: "from-purple-500/20 to-indigo-500/10",
@@ -63,11 +63,11 @@ export default function Dashboard() {
           </div>
 
           <h2 className="text-2xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">
-            Monitor microscopy workflow with <span className="bg-gradient-to-r from-cyan-400 via-indigo-300 to-indigo-500 bg-clip-text text-transparent">real-time AI precision</span>
+            Monitor samples with <span className="bg-gradient-to-r from-cyan-400 via-indigo-300 to-indigo-500 bg-clip-text text-transparent">real-time AI precision</span>
           </h2>
 
           <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-            Keep patient records, lab samples, automated image processing, and neural network predictions seamlessly connected in a unified workspace.
+            Keep patient records, lab samples, automated image processing with neural network predictions seamlessly connected in a unified workspace.
           </p>
 
           <div className="pt-2 flex flex-wrap gap-4">
