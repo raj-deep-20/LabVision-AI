@@ -1,37 +1,73 @@
 import os
 from datetime import datetime
 
-from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
-
 from sqlalchemy.orm import Session
 
+from app.models.sample import Sample
+from app.models.image import Image
 from app.models.prediction import Prediction
 
 
 REPORT_FOLDER = "reports"
-
 os.makedirs(REPORT_FOLDER, exist_ok=True)
 
 
-def generate_report(db: Session, prediction_id: int):
+def generate_report(db: Session, sample_code: str):
+
+    # ----------------------------
+    # Find Sample
+    # ----------------------------
+
+    sample = (
+        db.query(Sample)
+        .filter(Sample.sample_id == sample_code)
+        .first()
+    )
+
+    if not sample:
+        raise ValueError("Sample not found.")
+
+    # ----------------------------
+    # Find Latest Image
+    # ----------------------------
+
+    image = (
+        db.query(Image)
+        .filter(Image.sample_id == sample.id)
+        .order_by(Image.id.desc())
+        .first()
+    )
+
+    if not image:
+        raise ValueError("Image not found.")
+
+    # ----------------------------
+    # Find Prediction
+    # ----------------------------
 
     prediction = (
         db.query(Prediction)
-        .filter(Prediction.id == prediction_id)
+        .filter(Prediction.image_id == image.id)
         .first()
     )
 
     if not prediction:
         raise ValueError("Prediction not found.")
 
-    image = prediction.image
-    sample = image.sample
+    # ----------------------------
+    # Patient Details
+    # ----------------------------
+
     patient = sample.patient
+
+    # ----------------------------
+    # Create PDF
+    # ----------------------------
 
     pdf_path = os.path.join(
         REPORT_FOLDER,
-        f"report_{prediction.id}.pdf"
+        f"{sample.sample_id}_report.pdf"
     )
 
     pdf = canvas.Canvas(pdf_path)
@@ -39,7 +75,7 @@ def generate_report(db: Session, prediction_id: int):
     y = 800
 
     pdf.setFont("Helvetica-Bold", 18)
-    pdf.drawString(180, y, "LabVision AI Report")
+    pdf.drawString(170, y, "LabVision AI Report")
 
     y -= 40
 
@@ -58,6 +94,17 @@ def generate_report(db: Session, prediction_id: int):
     y -= 20
 
     pdf.drawString(50, y, f"Doctor : {patient.doctor}")
+    y -= 20
+
+    pdf.drawString(50, y, f"Sample ID : {sample.sample_id}")
+    y -= 20
+
+    pdf.drawString(
+        50,
+        y,
+        f"Collection Date : {sample.collection_date}"
+    )
+
     y -= 40
 
     pdf.setFont("Helvetica-Bold", 14)
@@ -67,28 +114,48 @@ def generate_report(db: Session, prediction_id: int):
 
     pdf.setFont("Helvetica", 12)
 
-    pdf.drawString(50, y, f"Test Report : {prediction.disease}")
+    pdf.drawString(50, y, f"Disease : {prediction.disease}")
     y -= 20
 
-    pdf.drawString(50, y, f"Confidence : {prediction.confidence:.2f}")
+    pdf.drawString(
+        50,
+        y,
+        f"Confidence : {prediction.confidence:.2%}"
+    )
     y -= 20
 
-    pdf.drawString(50, y, f"Image Quality : {prediction.image_quality}")
+    pdf.drawString(
+        50,
+        y,
+        f"Image Quality : {prediction.image_quality}"
+    )
     y -= 20
 
-    pdf.drawString(50, y, f"RBC Count : {prediction.rbc_count}")
+    pdf.drawString(
+        50,
+        y,
+        f"RBC Count : {prediction.rbc_count}"
+    )
     y -= 20
 
-    pdf.drawString(50, y, f"WBC Count : {prediction.wbc_count}")
+    pdf.drawString(
+        50,
+        y,
+        f"WBC Count : {prediction.wbc_count}"
+    )
     y -= 20
 
-    pdf.drawString(50, y, f"Platelet Count : {prediction.platelet_count}")
+    pdf.drawString(
+        50,
+        y,
+        f"Platelet Count : {prediction.platelet_count}"
+    )
     y -= 40
 
     pdf.drawString(
         50,
         y,
-        f"Generated : {datetime.now().strftime('%d-%m-%Y %H:%M')}"
+        f"Generated On : {datetime.now().strftime('%d-%m-%Y %H:%M')}"
     )
 
     pdf.save()

@@ -17,7 +17,7 @@ from app.schemas.sample import (
 from app.services.sample_service import (
     create_sample,
     get_all_samples,
-    get_sample_by_id,
+    get_sample_by_code,
     update_sample,
     delete_sample
 )
@@ -66,19 +66,19 @@ def fetch_samples(
 
 
 # ----------------------------------------
-# Get Sample by ID
+# Get Sample by Code
 # ----------------------------------------
 @router.get(
-    "/{sample_id}",
+    "/{sample_code}",
     response_model=SampleResponse
 )
 def fetch_sample(
-    sample_id: int,
+    sample_code: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
 
-    sample = get_sample_by_id(db, sample_id)
+    sample = get_sample_by_code(db, sample_code)
 
     if not sample:
         raise HTTPException(
@@ -93,11 +93,11 @@ def fetch_sample(
 # Update Sample
 # ----------------------------------------
 @router.put(
-    "/{sample_id}",
+    "/{sample_code}",
     response_model=SampleResponse
 )
 def edit_sample(
-    sample_id: int,
+    sample_code: str,
     sample: SampleUpdate,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
@@ -105,7 +105,7 @@ def edit_sample(
 
     updated_sample = update_sample(
         db,
-        sample_id,
+        sample_code,
         sample
     )
 
@@ -121,14 +121,14 @@ def edit_sample(
 # ----------------------------------------
 # Delete Sample
 # ----------------------------------------
-@router.delete("/{sample_id}")
+@router.delete("/{sample_code}")
 def remove_sample(
-    sample_id: int,
+    sample_code: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
 
-    sample = delete_sample(db, sample_id)
+    sample = delete_sample(db, sample_code)
 
     if not sample:
         raise HTTPException(

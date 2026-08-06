@@ -11,7 +11,11 @@ import {
   FiCpu,
   FiShield,
   FiX,
+  FiSun,
+  FiMoon,
 } from "react-icons/fi";
+import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 const navItems = [
   { to: "/dashboard", label: "Dashboard", icon: FiBarChart2 },
@@ -24,12 +28,14 @@ const navItems = [
 
 export default function Layout() {
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   function handleLogout() {
-    localStorage.removeItem("token");
+    signOut();
     setMobileMenuOpen(false);
-    navigate("/login");
+    navigate("/");
   }
 
   function closeMobileMenu() {
@@ -92,7 +98,7 @@ export default function Layout() {
         />
       )}
 
-      {/* Ultra-Compact Icon Sidebar */}
+      {/* Sidebar */}
       <aside className="hidden lg:flex w-16 md:w-20 fixed inset-y-0 left-0 z-30 flex-col items-center justify-between py-6 bg-slate-900/60 backdrop-blur-xl border-r border-slate-800/80 shadow-2xl">
         {/* Brand Icon */}
         <div className="flex flex-col items-center gap-2">
@@ -113,19 +119,32 @@ export default function Layout() {
           {renderNavItems()}
         </nav>
 
-        {/* Logout Button */}
-        <button
-          onClick={handleLogout}
-          title="Logout"
-          className="group relative flex items-center justify-center w-11 h-11 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 hover:border hover:border-rose-500/30 transition-all duration-300 active:scale-95"
-        >
-          <FiLogOut size={18} className="transition-transform duration-300 group-hover:-translate-x-0.5" />
-          <span className="absolute left-16 px-3 py-1.5 rounded-lg bg-slate-900 text-rose-300 text-xs font-semibold whitespace-nowrap shadow-xl border border-slate-700/60 opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 z-50">
-            Logout
-          </span>
-        </button>
+        {/* Bottom Actions */}
+        <div className="flex flex-col items-center gap-3">
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            title={`Switch to ${theme === "dark" ? "Light" : "Dark"} mode`}
+            className="flex items-center justify-center w-11 h-11 rounded-xl text-slate-400 hover:text-cyan-400 hover:bg-slate-800/60 transition-all duration-200"
+          >
+            {theme === "dark" ? <FiSun size={18} /> : <FiMoon size={18} />}
+          </button>
+
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout}
+            title="Logout"
+            className="group relative flex items-center justify-center w-11 h-11 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 hover:border hover:border-rose-500/30 transition-all duration-300 active:scale-95"
+          >
+            <FiLogOut size={18} className="transition-transform duration-300 group-hover:-translate-x-0.5" />
+            <span className="absolute left-16 px-3 py-1.5 rounded-lg bg-slate-900 text-rose-300 text-xs font-semibold whitespace-nowrap shadow-xl border border-slate-700/60 opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 z-50">
+              Logout
+            </span>
+          </button>
+        </div>
       </aside>
 
+      {/* Mobile Bar */}
       <div className="lg:hidden fixed top-0 inset-x-0 z-30 px-4 pt-4">
         <div className="flex items-center justify-between h-14 px-4 rounded-2xl bg-slate-900/70 backdrop-blur-xl border border-slate-800/80 shadow-2xl">
           <button
@@ -148,13 +167,23 @@ export default function Layout() {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-xs font-semibold text-rose-300"
-          >
-            Logout
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="p-2 rounded-xl border border-slate-700/70 bg-slate-950/40 text-slate-300"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <FiSun size={16} /> : <FiMoon size={16} />}
+            </button>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-xs font-semibold text-rose-300"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         <div
@@ -181,12 +210,37 @@ export default function Layout() {
           </div>
 
           <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300 hover:border-cyan-500/40 transition-colors"
+            >
+              {theme === "dark" ? (
+                <>
+                  <FiSun size={14} className="text-amber-400" />
+                  <span>Light Mode</span>
+                </>
+              ) : (
+                <>
+                  <FiMoon size={14} className="text-indigo-400" />
+                  <span>Dark Mode</span>
+                </>
+              )}
+            </button>
+
+            {user && (
+              <div className="flex items-center gap-3 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-cyan-500 to-indigo-500 flex items-center justify-center text-xs font-bold text-white shadow-md">
+                  {user.name.slice(0, 2).toUpperCase()}
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-white leading-none">{user.name}</p>
+                  <p className="text-[11px] text-slate-400">{user.email}</p>
+                </div>
+              </div>
+            )}
             <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-900/80 border border-slate-800 text-xs text-slate-400 font-mono">
               <FiShield className="text-indigo-400" />
               <span>HIPAA Compliant</span>
-            </div>
-            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-xs font-bold text-white shadow-md">
-              DR
             </div>
           </div>
         </header>

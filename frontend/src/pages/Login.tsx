@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiLock, FiMail, FiArrowRight, FiShield } from "react-icons/fi";
 import api from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("demo@labvision.ai");
   const [password, setPassword] = useState("demo1234");
   const [loading, setLoading] = useState(false);
@@ -17,7 +19,7 @@ export default function Login() {
 
     try {
       const res = await api.post("/auth/login", { email, password });
-      localStorage.setItem("token", res.data.access_token);
+      await signIn(res.data.access_token);
       navigate("/dashboard");
     } catch {
       setMessage("Login failed. Please check your credentials.");
@@ -49,7 +51,7 @@ export default function Login() {
 
           <div className="mt-8 pt-6 border-t border-slate-800/60 flex items-center gap-3 text-xs text-slate-400 font-mono">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>AI Neural Network v2.4 Live</span>
+            <span>Your own AI Lab</span>
           </div>
         </div>
 
@@ -69,7 +71,7 @@ export default function Login() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@labvision.ai"
+                  placeholder="you@gmail.com"
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/60 transition-all font-mono text-sm"
                   required
                 />

@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date, DateTime
 from sqlalchemy.orm import relationship
+from datetime import datetime
+
 from app.core.database import Base
 
 
@@ -23,6 +25,8 @@ class Patient(Base):
     doctor = Column(String(100), nullable=False)
 
     visit_date = Column(Date)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
 
     samples = relationship(
         "Sample",

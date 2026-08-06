@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from app.models.image import Image
 from app.models.prediction import Prediction
 from app.services.opencv_service import analyse_image
-
+from app.models.sample import Sample
 
 # ----------------------------
 # Load model only once
@@ -23,16 +23,24 @@ model = tf.keras.models.load_model(MODEL_PATH)
 # Prediction Function
 # ----------------------------
 
-def predict_image(db: Session, image_id: int):
+def predict_image(db: Session, sample_code: str):
+
+    sample = (
+        db.query(Sample)
+        .filter(Sample.sample_id == sample_code)
+        .first()
+    )
+    if not sample:
+        raise ValueError("Sample not found.")
 
     image = (
         db.query(Image)
-        .filter(Image.id == image_id)
+        .filter(Image.sample_id == sample.id)
+        .order_by(Image.id.desc())
         .first()
     )
-
     if not image:
-        raise ValueError("Image not found.")
+        raise ValueError("No image uploaded for this sample.")
 
     image_path = image.image_path
 
@@ -72,7 +80,7 @@ def predict_image(db: Session, image_id: int):
 
     existing = (
         db.query(Prediction)
-        .filter(Prediction.image_id == image_id)
+        .filter(Prediction.image_id == image.id)
         .first()
     )
 
@@ -80,42 +88,36 @@ def predict_image(db: Session, image_id: int):
 
         existing.disease = disease
         existing.confidence = confidence
-
         existing.image_quality = analysis["image_quality"]
-
         existing.rbc_count = analysis["rbc_count"]
-
         existing.wbc_count = analysis["wbc_count"]
-
         existing.platelet_count = analysis["platelet_count"]
 
         db.commit()
         db.refresh(existing)
 
-        return existing
+    else:
 
-    new_prediction = Prediction(
+        new_prediction = Prediction(
+            image_id=image.id,
+            disease=disease,
+            confidence=confidence,
+            image_quality=analysis["image_quality"],
+            rbc_count=analysis["rbc_count"],
+            wbc_count=analysis["wbc_count"],
+            platelet_count=analysis["platelet_count"]
+        )
 
-        image_id=image_id,
+        db.add(new_prediction)
+        db.commit()
+        db.refresh(new_prediction)
 
-        disease=disease,
-
-        confidence=confidence,
-
-        image_quality=analysis["image_quality"],
-
-        rbc_count=analysis["rbc_count"],
-
-        wbc_count=analysis["wbc_count"],
-
-        platelet_count=analysis["platelet_count"]
-
-    )
-
-    db.add(new_prediction)
-
-    db.commit()
-
-    db.refresh(new_prediction)
-
-    return new_prediction
+    return {
+        "sample_code": sample_code,
+        "disease": disease,
+        "confidence": confidence,
+        "image_quality": analysis["image_quality"],
+        "rbc_count": analysis["rbc_count"],
+        "wbc_count": analysis["wbc_count"],
+        "platelet_count": analysis["platelet_count"],
+    }

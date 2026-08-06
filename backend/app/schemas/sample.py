@@ -1,46 +1,54 @@
-from datetime import date
-from typing import Optional
+from datetime import date, datetime
+from typing import Optional, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict, model_validator
 
 
 class SampleCreate(BaseModel):
 
-    patient_id: int
+    patient_code: str = Field(pattern=r"^PAT\d{6}$")
 
-    sample_type: str = Field(min_length=2, max_length=50)
+    sample_type: Literal["Blood Smear", "Urine", "Tissue", "CSF", "Other"]
 
     collection_date: date
 
-    remarks: Optional[str] = None
+    remarks: Optional[str] = Field(None, max_length=255)
 
 
 class SampleUpdate(BaseModel):
 
-    sample_type: Optional[str] = None
+    sample_type: Optional[Literal["Blood Smear", "Urine", "Tissue", "CSF", "Other"]] = None
 
-    status: Optional[str] = None
+    status: Optional[Literal["Pending", "Processing", "Completed"]] = None
 
     collection_date: Optional[date] = None
 
-    remarks: Optional[str] = None
+    remarks: Optional[str] = Field(None, max_length=255)
 
 
 class SampleResponse(BaseModel):
 
-    id: int
-
-    sample_id: str
-
-    patient_id: int
-
+    sample_code: str
+    patient_code: str
     sample_type: str
-
     status: str
-
     collection_date: date
-
     remarks: Optional[str]
+    created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
+
+    @model_validator(mode='before')
+    @classmethod
+    def resolve_codes(cls, values):
+        if not isinstance(values, dict):
+            return {
+                'sample_code': values.sample_id,
+                'patient_code': values.patient.patient_id if values.patient else None,
+                'sample_type': values.sample_type,
+                'status': values.status,
+                'collection_date': values.collection_date,
+                'remarks': values.remarks,
+                'created_at': values.created_at,
+            }
+        return values

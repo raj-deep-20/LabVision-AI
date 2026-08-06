@@ -1,60 +1,70 @@
-import { useState } from "react";
-import { FiCpu, FiDownload, FiCheckCircle, FiAlertTriangle, FiLayers } from "react-icons/fi";
+import { useEffect, useState } from "react";
+import { FiCpu, FiDownload, FiCheckCircle, FiAlertTriangle, FiLayers, FiTag, FiRefreshCw } from "react-icons/fi";
 import api from "../services/api";
-
-type PredictionData = {
-  id: number;
-  image_id: number;
-  disease: string;
-  confidence: number;
-  image_quality: string;
-  rbc_count: number;
-  wbc_count: number;
-  platelet_count: number;
-};
+import type { PredictionRecord, SampleRecord } from "../services/contracts";
 
 export default function Prediction() {
-  const [imageId, setImageId] = useState("");
-  const [result, setResult] = useState<PredictionData | null>(null);
+  const [sampleCode, setSampleCode] = useState("");
+  const [result, setResult] = useState<PredictionRecord | null>(null);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [samples, setSamples] = useState<SampleRecord[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  async function fetchSamples() {
+    setRefreshing(true);
+    try {
+      const response = await api.get<SampleRecord[]>("/samples/");
+      setSamples(response.data);
+    } catch {
+      setSamples([]);
+    } finally {
+      setRefreshing(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchSamples();
+  }, []);
 
   async function handlePredict(e: React.FormEvent) {
     e.preventDefault();
-    if (!imageId) return;
+    if (!sampleCode) return;
 
     setLoading(true);
     setMessage("");
     setResult(null);
 
     try {
-      const res = await api.post(`/predictions/${imageId}`);
+      const res = await api.post<PredictionRecord>(`/predictions/${sampleCode}`);
       setResult(res.data);
     } catch (err: any) {
-      setMessage(err?.response?.data?.detail || "AI prediction failed. Please ensure the image ID exists.");
+      const detail = err?.response?.data?.detail;
+      setMessage(detail || "AI prediction failed. Please ensure the sample code exists and an image has been uploaded.");
     } finally {
       setLoading(false);
     }
   }
 
-  async function handleDownloadReport(predictionId: number) {
+  async function handleDownloadReport(code: string) {
     setDownloading(true);
     try {
-      const response = await api.get(`/reports/${predictionId}`, {
+      const response = await api.get(`/reports/${code}`, {
         responseType: "blob",
       });
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", `LabVision_Report_${predictionId}.pdf`);
+      link.setAttribute("download", `LabVision_Report_${code}.pdf`);
       document.body.appendChild(link);
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
-    } catch (err) {
-      alert("Failed to download report. Please check server logs.");
+    } catch (err: any) {
+      const detail = err?.response?.data?.detail;
+      alert(detail || "Failed to download report. Please check server logs.");
     } finally {
       setDownloading(false);
     }
@@ -85,23 +95,31 @@ export default function Prediction() {
 
       {/* Input Form Card */}
       <div className="relative rounded-3xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 p-8 shadow-2xl overflow-hidden">
-        {/* Vertical Scanline Beam Animation during AI processing */}
         {loading && <div className="animate-scanline" />}
 
         <form onSubmit={handlePredict} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-              Ingested Image ID
+              Sample Code
             </label>
             <div className="flex gap-3">
               <input
-                type="number"
-                value={imageId}
-                onChange={(e) => setImageId(e.target.value)}
-                placeholder="e.g. 1"
+                type="text"
+                value={sampleCode}
+                onChange={(e) => setSampleCode(e.target.value)}
+                placeholder="e.g. SMP000001"
+                list="prediction-samples"
                 className="flex-1 px-4 py-3 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/60 font-mono text-sm transition-all"
                 required
               />
+              <button
+                type="button"
+                onClick={fetchSamples}
+                className="px-4 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200 flex items-center gap-2"
+              >
+                <FiRefreshCw className={refreshing ? "animate-spin" : ""} />
+                Refresh
+              </button>
               <button
                 type="submit"
                 disabled={loading}
@@ -110,6 +128,34 @@ export default function Prediction() {
                 <FiCpu size={18} />
                 <span>{loading ? "Analyzing Microscopic Features..." : "Execute AI Prediction"}</span>
               </button>
+            </div>
+            <datalist id="prediction-samples">
+              {samples.map((sample) => (
+                <option key={sample.sample_code} value={sample.sample_code} />
+              ))}
+            </datalist>
+            <div className="mt-3 rounded-2xl border border-slate-800 bg-slate-950/40 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Sample Registry</p>
+              <div className="max-h-40 overflow-auto space-y-2 pr-1">
+                {samples.map((sample) => {
+                  const code = sample.sample_code;
+                  return (
+                    <button
+                      key={code}
+                      type="button"
+                      onClick={() => setSampleCode(code)}
+                      className="w-full flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-2 text-left text-sm text-slate-200 hover:border-cyan-500/40 hover:bg-slate-800/70"
+                    >
+                      <span className="flex items-center gap-2 font-mono">
+                        <FiTag className="text-slate-500" />
+                        {code}
+                      </span>
+                      <span className="text-xs text-slate-400 font-mono">{sample.status}</span>
+                    </button>
+                  );
+                })}
+                {!samples.length && <p className="text-sm text-slate-400">No samples available yet.</p>}
+              </div>
             </div>
           </div>
 
@@ -156,7 +202,7 @@ export default function Prediction() {
 
             {/* PDF Report Download Button */}
             <button
-              onClick={() => handleDownloadReport(result.id)}
+              onClick={() => handleDownloadReport(sampleCode)}
               disabled={downloading}
               className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 self-start sm:self-auto"
             >
@@ -207,7 +253,7 @@ export default function Prediction() {
               <span>Image Quality Rating: <strong className="text-slate-200">{result.image_quality}</strong></span>
             </div>
             <div>
-              <span>Prediction ID: <strong className="text-cyan-400">#{result.id}</strong></span>
+              <span>Sample Code: <strong className="text-cyan-400">{result.sample_code}</strong></span>
             </div>
           </div>
         </div>

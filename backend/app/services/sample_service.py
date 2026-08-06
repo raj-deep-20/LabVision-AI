@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.models.patient import Patient
 from app.models.sample import Sample
@@ -28,7 +28,7 @@ def create_sample(db: Session, sample: SampleCreate):
 
     patient = (
         db.query(Patient)
-        .filter(Patient.id == sample.patient_id)
+        .filter(Patient.patient_id == sample.patient_code)
         .first()
     )
 
@@ -37,7 +37,7 @@ def create_sample(db: Session, sample: SampleCreate):
 
     new_sample = Sample(
         sample_id=generate_sample_id(db),
-        patient_id=sample.patient_id,
+        patient_id=patient.id,
         sample_type=sample.sample_type,
         collection_date=sample.collection_date,
         remarks=sample.remarks,
@@ -48,32 +48,44 @@ def create_sample(db: Session, sample: SampleCreate):
     db.commit()
     db.refresh(new_sample)
 
-    return new_sample
+    # Re-query with eager-loaded patient for response serialization
+    return (
+        db.query(Sample)
+        .options(joinedload(Sample.patient))
+        .filter(Sample.id == new_sample.id)
+        .first()
+    )
 
 
 def get_all_samples(db: Session):
 
-    return db.query(Sample).all()
+    return (
+        db.query(Sample)
+        .options(joinedload(Sample.patient))
+        .all()
+    )
 
 
-def get_sample_by_id(db: Session, sample_id: int):
+def get_sample_by_code(db: Session, sample_code: str):
 
     return (
         db.query(Sample)
-        .filter(Sample.id == sample_id)
+        .options(joinedload(Sample.patient))
+        .filter(Sample.sample_id == sample_code)
         .first()
     )
 
 
 def update_sample(
     db: Session,
-    sample_id: int,
+    sample_code: str,
     sample: SampleUpdate
 ):
 
     existing = (
         db.query(Sample)
-        .filter(Sample.id == sample_id)
+        .options(joinedload(Sample.patient))
+        .filter(Sample.sample_id == sample_code)
         .first()
     )
 
@@ -88,17 +100,22 @@ def update_sample(
     db.commit()
     db.refresh(existing)
 
-    return existing
+    return (
+        db.query(Sample)
+        .options(joinedload(Sample.patient))
+        .filter(Sample.sample_id == sample_code)
+        .first()
+    )
 
 
 def delete_sample(
     db: Session,
-    sample_id: int
+    sample_code: str
 ):
 
     sample = (
         db.query(Sample)
-        .filter(Sample.id == sample_id)
+        .filter(Sample.sample_id == sample_code)
         .first()
     )
 

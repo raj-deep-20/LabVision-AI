@@ -17,14 +17,14 @@ function App() {
   return (
     <BrowserRouter>
       <Helmet>
-        <title>LabVision AI | Clinical imaging workspace</title>
+        <title>LabVision AI | Clinical microscopy workspace</title>
         <meta
           name="description"
-          content="LabVision AI is a clinical imaging workspace for patient management, sample tracking, image uploads, and AI-assisted blood smear prediction."
+          content="LabVision AI connects patient registration, sample tracking, smear uploads, AI prediction, and PDF reporting in one clinical workflow."
         />
         <meta
           name="keywords"
-          content="LabVision AI, clinical imaging, blood smear, pathology workflow, AI prediction, patient registry"
+          content="LabVision AI, clinical microscopy, blood smear, pathology workflow, AI prediction, patient registry, sample tracking"
         />
       </Helmet>
       <Routes>

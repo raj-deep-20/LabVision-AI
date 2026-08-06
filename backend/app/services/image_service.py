@@ -12,13 +12,13 @@ UPLOAD_FOLDER = "uploads"
 
 def upload_image(
     db: Session,
-    sample_id: int,
+    sample_code: str,
     file: UploadFile
 ):
 
     sample = (
         db.query(Sample)
-        .filter(Sample.id == sample_id)
+        .filter(Sample.sample_id == sample_code)
         .first()
     )
 
@@ -36,7 +36,7 @@ def upload_image(
         shutil.copyfileobj(file.file, buffer)
 
     image = Image(
-        sample_id=sample_id,
+        sample_id=sample.id,
         image_name=file.filename,
         image_path=file_path
     )
@@ -45,4 +45,8 @@ def upload_image(
     db.commit()
     db.refresh(image)
 
-    return image
+    return {
+        "sample_code": sample_code,
+        "image_name": file.filename,
+        "image_path": file_path,
+    }

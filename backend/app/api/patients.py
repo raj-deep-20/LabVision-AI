@@ -1,12 +1,10 @@
-from fastapi import APIRouter
-from fastapi import Depends
-from fastapi import HTTPException
-from app.core.dependencies import get_current_user
-from app.models.user import User
-
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
+from app.core.dependencies import get_current_user
+
+from app.models.user import User
 
 from app.schemas.patient import (
     PatientCreate,
@@ -16,7 +14,7 @@ from app.schemas.patient import (
 from app.services.patient_service import (
     create_patient,
     get_all_patients,
-    get_patient_by_id,
+    get_patient_by_code,
     update_patient,
     delete_patient
 )
@@ -38,13 +36,13 @@ def add_patient(
     current_user: User = Depends(get_current_user)
 ):
     try:
-        new_patient = create_patient(db, patient)
-        return new_patient
+        return create_patient(db, patient)
     except ValueError as e:
         raise HTTPException(
             status_code=400,
             detail=str(e)
         )
+
 
 @router.get(
     "/",
@@ -58,16 +56,16 @@ def fetch_patients(
 
 
 @router.get(
-    "/{patient_id}",
+    "/{patient_code}",
     response_model=PatientResponse
 )
 def fetch_patient(
-    patient_id: int,
+    patient_code: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
 
-    patient = get_patient_by_id(db, patient_id)
+    patient = get_patient_by_code(db, patient_code)
 
     if not patient:
         raise HTTPException(
@@ -79,11 +77,11 @@ def fetch_patient(
 
 
 @router.put(
-    "/{patient_id}",
+    "/{patient_code}",
     response_model=PatientResponse
 )
 def edit_patient(
-    patient_id: int,
+    patient_code: str,
     updated_patient: PatientCreate,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
@@ -91,7 +89,7 @@ def edit_patient(
 
     patient = update_patient(
         db,
-        patient_id,
+        patient_code,
         updated_patient
     )
 
@@ -104,16 +102,16 @@ def edit_patient(
     return patient
 
 
-@router.delete("/{patient_id}")
+@router.delete("/{patient_code}")
 def remove_patient(
-    patient_id: int,
+    patient_code: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
 
     patient = delete_patient(
         db,
-        patient_id
+        patient_code
     )
 
     if not patient:

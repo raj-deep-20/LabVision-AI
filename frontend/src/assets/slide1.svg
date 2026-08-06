@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <radialGradient id="cellGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg1)"/>
+  <circle cx="200" cy="180" r="45" fill="#f43f5e" opacity="0.75"/>
+  <circle cx="320" cy="240" r="50" fill="#f43f5e" opacity="0.8"/>
+  <circle cx="480" cy="160" r="48" fill="#f43f5e" opacity="0.7"/>
+  <circle cx="620" cy="260" r="42" fill="#f43f5e" opacity="0.8"/>
+  <circle cx="380" cy="130" r="60" fill="#6366f1" opacity="0.85"/>
+  <circle cx="380" cy="130" r="25" fill="#312e81"/>
+  <!-- AI Overlay Boxes -->
+  <rect x="145" y="125" width="110" height="110" fill="none" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="150" y="120" fill="#06b6d4" font-family="monospace" font-size="12" font-weight="bold">RBC #102 [99.4%]</text>
+  <rect x="310" y="60" width="140" height="140" fill="none" stroke="#6366f1" stroke-width="2.5"/>
+  <text x="315" y="55" fill="#818cf8" font-family="monospace" font-size="13" font-weight="bold font-mono">WBC #044 [SEGMENTED]</text>
+  <!-- Grid overlay -->
+  <path d="M0 150 L800 150 M0 300 L800 300 M266 0 L266 450 M533 0 L533 450" stroke="#1e293b" stroke-width="1" opacity="0.5"/>
+</svg>
