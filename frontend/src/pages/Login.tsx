@@ -32,11 +32,11 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center p-6 bg-[#060A12] text-slate-100 relative overflow-hidden">
       {/* Background Lighting Orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-400/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-4xl grid md:grid-cols-2 rounded-3xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 shadow-2xl overflow-hidden relative z-10">
         {/* Hero Branding Section */}
-        <div className="p-8 md:p-12 bg-gradient-to-br from-indigo-900/50 via-slate-900/80 to-cyan-950/40 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800/80">
+        <div className="p-8 md:p-12 bg-gradient-to-br from-indigo-900/50 via-slate-900/80 to-cyan-950/40 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800/80 force-light-text">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-6">
               <FiShield /> Secure Diagnostics Portal
@@ -44,7 +44,7 @@ export default function Login() {
             <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight mb-4">
               Welcome back to <span className="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">LabVision AI</span>
             </h1>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               Access patient records, imaging workflows, and AI-assisted blood smear diagnostic predictions in one unified workspace.
             </p>
           </div>

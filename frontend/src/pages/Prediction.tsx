@@ -102,31 +102,31 @@ export default function Prediction() {
             <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
               Sample Code
             </label>
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="text"
                 value={sampleCode}
                 onChange={(e) => setSampleCode(e.target.value)}
                 placeholder="e.g. SMP000001"
                 list="prediction-samples"
-                className="flex-1 px-4 py-3 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/60 font-mono text-sm transition-all"
+                className="flex-1 w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/60 font-mono text-sm transition-all"
                 required
               />
               <button
                 type="button"
                 onClick={fetchSamples}
-                className="px-4 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200 flex items-center gap-2"
+                className="px-4 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200 flex items-center justify-center gap-2 w-full sm:w-auto shrink-0"
               >
                 <FiRefreshCw className={refreshing ? "animate-spin" : ""} />
-                Refresh
+                <span>Refresh</span>
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-sm shadow-lg shadow-cyan-500/20 transition-all duration-200 active:scale-95 disabled:opacity-50 flex items-center gap-2"
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-sm shadow-lg shadow-cyan-500/20 transition-all duration-200 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 <FiCpu size={18} />
-                <span>{loading ? "Analyzing Microscopic Features..." : "Execute AI Prediction"}</span>
+                <span>{loading ? "Analyzing..." : "Execute AI Prediction"}</span>
               </button>
             </div>
             <datalist id="prediction-samples">

@@ -163,7 +163,7 @@ export default function Layout() {
             </div>
             <div>
               <p className="text-sm font-semibold text-white leading-none">LabVision AI</p>
-              <p className="text-[11px] text-slate-400">Clinical Microscopy Workspace</p>
+              <p className="text-[11px] text-slate-400 hidden sm:block">Clinical Microscopy Workspace</p>
             </div>
           </div>
 

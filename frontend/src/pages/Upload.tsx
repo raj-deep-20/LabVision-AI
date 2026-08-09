@@ -82,23 +82,23 @@ export default function Upload() {
             <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
               Sample Code
             </label>
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="text"
                 value={sampleCode}
                 onChange={(e) => setSampleCode(e.target.value)}
                 placeholder="e.g. SMP000001"
-                className="flex-1 px-4 py-3 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/60 font-mono text-sm transition-all"
+                className="flex-1 w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/60 font-mono text-sm transition-all"
                 list="sample-codes"
                 required
               />
               <button
                 type="button"
                 onClick={fetchSamples}
-                className="px-4 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200 flex items-center gap-2"
+                className="px-4 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200 flex items-center justify-center gap-2 w-full sm:w-auto shrink-0"
               >
                 <FiRefreshCw className={refreshing ? "animate-spin" : ""} />
-                Refresh
+                <span>Refresh</span>
               </button>
             </div>
             <p className="text-[11px] text-slate-400 mt-1 font-mono">
@@ -144,7 +144,7 @@ export default function Upload() {
               Blood Smear Microscopic Image
             </label>
 
-            <label className="relative flex flex-col items-center justify-center p-8 rounded-2xl border-2 border-dashed border-slate-700/80 hover:border-cyan-500/50 bg-slate-950/50 hover:bg-slate-950/80 transition-all cursor-pointer group">
+            <label className="relative flex flex-col items-center justify-center p-6 sm:p-8 rounded-2xl border-2 border-dashed border-slate-700/80 hover:border-cyan-500/50 bg-slate-950/50 hover:bg-slate-950/80 transition-all cursor-pointer group">
               <input
                 type="file"
                 accept="image/*"

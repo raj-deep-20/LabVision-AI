@@ -170,6 +170,32 @@
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
+
+  /* Ensure dark branding sidebar inside login/register retains light text colors in light mode */
+  .light-mode .force-light-text {
+    color: #f8fafc !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+  }
+  .light-mode .force-light-text .text-white,
+  .light-mode .force-light-text h1 {
+    color: #ffffff !important;
+  }
+  .light-mode .force-light-text .text-slate-300,
+  .light-mode .force-light-text p {
+    color: #cbd5e1 !important;
+  }
+  .light-mode .force-light-text .text-slate-400,
+  .light-mode .force-light-text span {
+    color: #94a3b8 !important;
+  }
+  .light-mode .force-light-text .bg-cyan-500\/10 {
+    background-color: rgba(6, 182, 212, 0.1) !important;
+    border-color: rgba(6, 182, 212, 0.3) !important;
+    color: #22d3ee !important;
+  }
+  .light-mode .force-light-text .bg-clip-text {
+    color: transparent !important;
+  }
 }
 
 /* Glassmorphism */

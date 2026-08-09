@@ -136,7 +136,7 @@ export default function Home() {
   return (
     <div className="min-h-screen space-y-16 lg:space-y-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* 1. Floating Glass Navbar */}
-      <header className="sticky top-4 z-40 rounded-2xl border border-slate-800/80 bg-slate-900/70 backdrop-blur-2xl shadow-2xl px-5 py-3.5 flex items-center justify-between transition-all">
+      <header className="sticky top-4 z-40 px-4 rounded-2xl border border-slate-800/80 bg-slate-900/70 backdrop-blur-2xl shadow-2xl px-5 py-3.5 flex items-center justify-between transition-all">
         {/* Brand Logo */}
         <div className="flex items-center gap-3">
           <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 text-xs font-black text-white shadow-lg shadow-cyan-500/25">
@@ -145,7 +145,7 @@ export default function Home() {
           </div>
           <div>
             <p className="text-base font-extrabold text-white tracking-tight leading-none">LabVision AI</p>
-            <p className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider mt-0.5">Clinical Pathology Workspace</p>
+            <p className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider mt-0.5 hidden sm:block">Clinical Pathology Workspace</p>
           </div>
         </div>
 
@@ -198,7 +198,7 @@ export default function Home() {
 
           <Link
             to="/register"
-            className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-cyan-500/25 transition-all hover:from-cyan-400 hover:to-indigo-500 active:scale-95"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 px-3 py-1.5 sm:px-4 sm:py-2 text-xs font-bold text-white shadow-lg shadow-cyan-500/25 transition-all hover:from-cyan-400 hover:to-indigo-500 active:scale-95"
           >
             Register
             <FiArrowRight size={14} />
@@ -233,17 +233,17 @@ export default function Home() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-1">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-1">
               <Link
                 to="/register"
-                className="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-indigo-500 hover:from-cyan-400 hover:to-indigo-400 text-white font-bold text-sm shadow-xl shadow-cyan-500/25 transition-all duration-200 active:scale-95 flex items-center gap-2"
+                className="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-indigo-500 hover:from-cyan-400 hover:to-indigo-400 text-white font-bold text-sm shadow-xl shadow-cyan-500/25 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto text-center"
               >
                 <span>Get Started Now</span>
                 <FiArrowRight size={16} />
               </Link>
               <Link
                 to="/login"
-                className="px-6 py-3.5 rounded-2xl border border-slate-700/80 bg-slate-950/60 hover:bg-slate-900 text-slate-200 font-bold text-sm transition-all duration-200 active:scale-95"
+                className="px-6 py-3.5 rounded-2xl border border-slate-700/80 bg-slate-950/60 hover:bg-slate-900 text-slate-200 font-bold text-sm transition-all duration-200 active:scale-95 w-full sm:w-auto text-center"
               >
                 Sign In to Workspace
               </Link>
@@ -447,7 +447,7 @@ export default function Home() {
             </div>
 
             {/* 3 Step Process Box */}
-            <div className="grid sm:grid-cols-3 gap-4 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
               <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
                 <div className="h-8 w-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center font-mono font-bold text-cyan-400 text-xs">
                   01

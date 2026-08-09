@@ -300,52 +300,90 @@ export default function Patients() {
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-slate-950/60 border-b border-slate-800 text-xs font-mono uppercase tracking-wider text-slate-400">
-                  <th className="py-3.5 px-5">Patient Name</th>
-                  <th className="py-3.5 px-5">Patient Code</th>
-                  <th className="py-3.5 px-5">Age / Gender</th>
-                  <th className="py-3.5 px-5">Blood Group</th>
-                  <th className="py-3.5 px-5">Attending Doctor</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800/60 text-sm">
-                {patients.map((patient) => {
-                  const code = patient.patient_code || patient.patient_id || "PAT";
-                  return (
-                    <tr
-                      key={code}
-                      className="hover:bg-slate-800/40 transition-colors duration-150 group"
-                    >
-                      <td className="py-4 px-5 font-medium text-white flex items-center gap-3">
+          <>
+            {/* Desktop view: Table */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-slate-950/60 border-b border-slate-800 text-xs font-mono uppercase tracking-wider text-slate-400">
+                    <th className="py-3.5 px-5">Patient Name</th>
+                    <th className="py-3.5 px-5">Patient Code</th>
+                    <th className="py-3.5 px-5">Age / Gender</th>
+                    <th className="py-3.5 px-5">Blood Group</th>
+                    <th className="py-3.5 px-5">Attending Doctor</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800/60 text-sm">
+                  {patients.map((patient) => {
+                    const code = patient.patient_code || patient.patient_id || "PAT";
+                    return (
+                      <tr
+                        key={code}
+                        className="hover:bg-slate-800/40 transition-colors duration-150 group"
+                      >
+                        <td className="py-4 px-5 font-medium text-white flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold text-xs">
+                            {patient.name.charAt(0).toUpperCase()}
+                          </div>
+                          <span>{patient.name}</span>
+                        </td>
+                        <td className="py-4 px-5 font-mono text-cyan-400 font-semibold text-xs">
+                          {code}
+                        </td>
+                        <td className="py-4 px-5 font-mono text-slate-300 text-xs">
+                          {patient.age} Yrs / <span className="capitalize">{patient.gender}</span>
+                        </td>
+                        <td className="py-4 px-5">
+                          <span className="inline-block px-2.5 py-0.5 rounded-md bg-rose-500/10 border border-rose-500/30 text-rose-400 font-mono font-bold text-xs">
+                            {patient.blood_group}
+                          </span>
+                        </td>
+                        <td className="py-4 px-5 text-slate-300 text-xs flex items-center gap-2">
+                          <FiUserCheck className="text-emerald-400" />
+                          <span>{patient.doctor}</span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile view: Stacked Cards */}
+            <div className="block md:hidden divide-y divide-slate-800/60">
+              {patients.map((patient) => {
+                const code = patient.patient_code || patient.patient_id || "PAT";
+                return (
+                  <div key={code} className="p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
                         <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold text-xs">
                           {patient.name.charAt(0).toUpperCase()}
                         </div>
-                        <span>{patient.name}</span>
-                      </td>
-                      <td className="py-4 px-5 font-mono text-cyan-400 font-semibold text-xs">
-                        {code}
-                      </td>
-                      <td className="py-4 px-5 font-mono text-slate-300 text-xs">
-                        {patient.age} Yrs / <span className="capitalize">{patient.gender}</span>
-                      </td>
-                      <td className="py-4 px-5">
-                        <span className="inline-block px-2.5 py-0.5 rounded-md bg-rose-500/10 border border-rose-500/30 text-rose-400 font-mono font-bold text-xs">
-                          {patient.blood_group}
-                        </span>
-                      </td>
-                      <td className="py-4 px-5 text-slate-300 text-xs flex items-center gap-2">
-                        <FiUserCheck className="text-emerald-400" />
-                        <span>{patient.doctor}</span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                        <div>
+                          <p className="text-sm font-semibold text-white">{patient.name}</p>
+                          <p className="text-xs text-slate-400 font-mono">{code}</p>
+                        </div>
+                      </div>
+                      <span className="inline-block px-2.5 py-0.5 rounded-md bg-rose-500/10 border border-rose-500/30 text-rose-400 font-mono font-bold text-xs">
+                        {patient.blood_group}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="p-2 rounded-lg bg-slate-950/40 border border-slate-800">
+                        <p className="text-slate-500 font-mono text-[10px] uppercase">Age / Gender</p>
+                        <p className="text-slate-300 font-mono mt-0.5">{patient.age} Yrs / {patient.gender}</p>
+                      </div>
+                      <div className="p-2 rounded-lg bg-slate-950/40 border border-slate-800">
+                        <p className="text-slate-500 font-mono text-[10px] uppercase">Attending Doctor</p>
+                        <p className="text-slate-300 mt-0.5 flex items-center gap-1"><FiUserCheck className="text-emerald-400 inline" size={12} /> {patient.doctor}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
     </div>

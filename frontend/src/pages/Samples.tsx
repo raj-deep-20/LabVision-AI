@@ -312,52 +312,89 @@ export default function Samples() {
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-slate-950/60 border-b border-slate-800 text-xs font-mono uppercase tracking-wider text-slate-400">
-                  <th className="py-3.5 px-5">Sample Code</th>
-                  <th className="py-3.5 px-5">Patient Code</th>
-                  <th className="py-3.5 px-5">Specimen Type</th>
-                  <th className="py-3.5 px-5">Processing Status</th>
-                  <th className="py-3.5 px-5">Collection Date</th>
-                  <th className="py-3.5 px-5">Remarks</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800/60 text-sm">
-                {samples.map((sample) => {
-                  const sCode = sample.sample_code || "SMP";
-                  const pCode = sample.patient_code || "PAT";
-                  return (
-                    <tr
-                      key={sCode}
-                      className="hover:bg-slate-800/40 transition-colors duration-150 group"
-                    >
-                      <td className="py-4 px-5 font-mono text-cyan-400 font-bold text-xs flex items-center gap-2">
-                        <FiTag className="text-slate-500" />
-                        <span>{sCode}</span>
-                      </td>
-                      <td className="py-4 px-5 font-mono text-emerald-400 font-semibold text-xs">
-                        {pCode}
-                      </td>
-                      <td className="py-4 px-5 font-medium text-slate-200">
-                        {sample.sample_type}
-                      </td>
-                      <td className="py-4 px-5">
-                        {getStatusBadge(sample.status)}
-                      </td>
-                      <td className="py-4 px-5 font-mono text-slate-400 text-xs">
-                        {sample.collection_date}
-                      </td>
-                      <td className="py-4 px-5 text-slate-400 text-xs italic">
-                        {sample.remarks || "—"}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+          <>
+            {/* Desktop view: Table */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-slate-950/60 border-b border-slate-800 text-xs font-mono uppercase tracking-wider text-slate-400">
+                    <th className="py-3.5 px-5">Sample Code</th>
+                    <th className="py-3.5 px-5">Patient Code</th>
+                    <th className="py-3.5 px-5">Specimen Type</th>
+                    <th className="py-3.5 px-5">Processing Status</th>
+                    <th className="py-3.5 px-5">Collection Date</th>
+                    <th className="py-3.5 px-5">Remarks</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800/60 text-sm">
+                  {samples.map((sample) => {
+                    const sCode = sample.sample_code || "SMP";
+                    const pCode = sample.patient_code || "PAT";
+                    return (
+                      <tr
+                        key={sCode}
+                        className="hover:bg-slate-800/40 transition-colors duration-150 group"
+                      >
+                        <td className="py-4 px-5 font-mono text-cyan-400 font-bold text-xs flex items-center gap-2">
+                          <FiTag className="text-slate-500" />
+                          <span>{sCode}</span>
+                        </td>
+                        <td className="py-4 px-5 font-mono text-emerald-400 font-semibold text-xs">
+                          {pCode}
+                        </td>
+                        <td className="py-4 px-5 font-medium text-slate-200">
+                          {sample.sample_type}
+                        </td>
+                        <td className="py-4 px-5">
+                          {getStatusBadge(sample.status)}
+                        </td>
+                        <td className="py-4 px-5 font-mono text-slate-400 text-xs">
+                          {sample.collection_date}
+                        </td>
+                        <td className="py-4 px-5 text-slate-400 text-xs italic">
+                          {sample.remarks || "—"}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile view: Stacked Cards */}
+            <div className="block md:hidden divide-y divide-slate-800/60">
+              {samples.map((sample) => {
+                const sCode = sample.sample_code || "SMP";
+                const pCode = sample.patient_code || "PAT";
+                return (
+                  <div key={sCode} className="p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-semibold text-white flex items-center gap-1.5 font-mono">
+                          <FiTag className="text-slate-500" /> {sCode}
+                        </p>
+                        <p className="text-xs text-slate-400 mt-1 font-mono">
+                          Patient Code: <span className="text-emerald-400 font-semibold">{pCode}</span>
+                        </p>
+                      </div>
+                      {getStatusBadge(sample.status)}
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="p-2 rounded-lg bg-slate-950/40 border border-slate-800">
+                        <p className="text-slate-500 font-mono text-[10px] uppercase">Specimen / Date</p>
+                        <p className="text-slate-300 mt-0.5">{sample.sample_type}</p>
+                        <p className="text-slate-400 font-mono text-[10px] mt-0.5">{sample.collection_date}</p>
+                      </div>
+                      <div className="p-2 rounded-lg bg-slate-950/40 border border-slate-800">
+                        <p className="text-slate-500 font-mono text-[10px] uppercase">Remarks</p>
+                        <p className="text-slate-300 mt-0.5 italic truncate">{sample.remarks || "—"}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
     </div>

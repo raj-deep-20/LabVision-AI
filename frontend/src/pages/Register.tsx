@@ -35,7 +35,7 @@ export default function Register() {
 
       <div className="w-full max-w-4xl grid md:grid-cols-2 rounded-3xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 shadow-2xl overflow-hidden relative z-10">
         {/* Hero Branding Section */}
-        <div className="p-8 md:p-12 bg-gradient-to-br from-cyan-950/50 via-slate-900/80 to-indigo-900/40 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800/80">
+        <div className="p-8 md:p-12 bg-gradient-to-br from-cyan-950/50 via-slate-900/80 to-indigo-900/40 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800/80 force-light-text">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-6">
               <FiShield /> Clinician Onboarding
