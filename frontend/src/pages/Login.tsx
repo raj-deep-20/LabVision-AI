@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiLock, FiMail, FiArrowRight, FiShield } from "react-icons/fi";
 import api from "../services/api";
@@ -6,11 +6,25 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { signIn } = useAuth();
+  const { signIn, user, loading: authLoading } = useAuth();
   const [email, setEmail] = useState("demo@labvision.ai");
   const [password, setPassword] = useState("demo1234");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (!authLoading && user) {
+      navigate("/dashboard");
+    }
+  }, [user, authLoading, navigate]);
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#060A12] text-slate-300 font-mono text-sm">
+        Restoring session...
+      </div>
+    );
+  }
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -36,7 +50,7 @@ export default function Login() {
 
       <div className="w-full max-w-4xl grid md:grid-cols-2 rounded-3xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 shadow-2xl overflow-hidden relative z-10">
         {/* Hero Branding Section */}
-        <div className="p-8 md:p-12 bg-gradient-to-br from-indigo-900/50 via-slate-900/80 to-cyan-950/40 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800/80 force-light-text">
+        <div className="p-8 md:p-12 bg-gradient-to-br from-indigo-900/50 via-slate-900/80 to-cyan-950/40 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800/80">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-6">
               <FiShield /> Secure Diagnostics Portal
@@ -44,7 +58,7 @@ export default function Login() {
             <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight mb-4">
               Welcome back to <span className="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">LabVision AI</span>
             </h1>
-            <p className="text-white text-sm leading-relaxed">
+            <p className="text-slate-300 text-sm leading-relaxed">
               Access patient records, imaging workflows, and AI-assisted blood smear diagnostic predictions in one unified workspace.
             </p>
           </div>
