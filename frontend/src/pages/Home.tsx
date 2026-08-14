@@ -137,7 +137,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen space-y-16 lg:space-y-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div className="min-h-screen space-y-16 lg:space-y-24 pt-4 sm:pt-6 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* 1. Floating Glass Navbar */}
       <header className="sticky top-4 z-40 rounded-2xl border border-slate-800/80 bg-slate-900/70 backdrop-blur-2xl shadow-2xl px-4 py-3 sm:px-5 sm:py-3.5 flex items-center justify-between transition-all">
         {/* Brand Logo */}
