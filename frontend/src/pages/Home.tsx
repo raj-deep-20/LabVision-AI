@@ -285,14 +285,14 @@ export default function Home() {
       )}
 
       {/* 2. Redesigned Asymmetric Split Hero Section */}
-      <section id="overview" className="relative overflow-hidden rounded-[2.5rem] border border-slate-800/80 bg-slate-900/60 backdrop-blur-xl shadow-2xl p-6 sm:p-10 lg:p-14">
+      <section id="overview" className="relative overflow-hidden rounded-[2.5rem] border border-slate-800/80 bg-slate-900/60 backdrop-blur-xl shadow-2xl p-4 sm:p-7 lg:p-12">
         {/* Background Ambient Glows */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-cyan-500/15 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-0 left-10 w-96 h-96 bg-indigo-500/15 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="relative grid gap-10 lg:grid-cols-[1.15fr_0.85fr] items-center">
+        <div className="relative grid gap-8 lg:grid-cols-[1.15fr_0.85fr] items-center">
           {/* Left Hero Content */}
-          <div className="space-y-7">
+          <div className="space-y-6 max-w-xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 pl-3 pr-4 py-1 sm:pl-4 sm:pr-5 sm:py-1.5 text-[9px] min-[380px]:text-[10px] sm:text-xs font-semibold uppercase tracking-wider sm:tracking-widest text-cyan-300 font-mono max-w-full">
               <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse shrink-0" />
               <span className="truncate pr-2 sm:pr-0 sm:whitespace-normal">Next-Gen Medical AI Diagnostic Workspace</span>
@@ -311,17 +311,17 @@ export default function Home() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-1">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
               <Link
                 to="/register"
-                className="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-indigo-500 hover:from-cyan-400 hover:to-indigo-400 text-white font-bold text-sm shadow-xl shadow-cyan-500/25 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto text-center"
+                className="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-indigo-500 hover:from-cyan-400 hover:to-indigo-400 text-white font-bold text-sm shadow-xl shadow-cyan-500/25 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto text-center"
               >
                 <span>Get Started Now</span>
                 <FiArrowRight size={16} />
               </Link>
               <Link
                 to="/login"
-                className="px-6 py-3.5 rounded-2xl border border-slate-700/80 bg-slate-950/60 hover:bg-slate-900 text-slate-200 font-bold text-sm transition-all duration-200 active:scale-95 w-full sm:w-auto text-center"
+                className="px-5 py-3 rounded-2xl border border-slate-700/80 bg-slate-950/60 hover:bg-slate-900 text-slate-200 font-bold text-sm transition-all duration-200 active:scale-95 w-full sm:w-auto text-center"
               >
                 Sign In to Workspace
               </Link>
