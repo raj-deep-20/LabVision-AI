@@ -234,7 +234,7 @@ export default function Home() {
 
       {/* Mobile Dropdown Menu Panel */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed top-20 inset-x-4 z-40 rounded-2xl border border-slate-800/90 bg-slate-900/95 backdrop-blur-2xl p-5 shadow-2xl flex flex-col gap-4 animate-fadeIn">
+        <div className="md:hidden fixed top-20 px-4 inset-x-4 z-40 rounded-2xl border border-slate-800/90 bg-slate-900/95 backdrop-blur-2xl p-5 shadow-2xl flex flex-col gap-4 animate-fadeIn">
           <a
             onClick={() => setMobileMenuOpen(false)}
             className="text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
