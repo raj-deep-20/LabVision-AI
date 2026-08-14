@@ -293,9 +293,9 @@ export default function Home() {
         <div className="relative grid gap-10 lg:grid-cols-[1.15fr_0.85fr] items-center">
           {/* Left Hero Content */}
           <div className="space-y-7">
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 sm:px-4 sm:py-1.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider sm:tracking-widest text-cyan-300 font-mono max-w-full">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 pl-3 pr-4 py-1 sm:pl-4 sm:pr-5 sm:py-1.5 text-[9px] min-[380px]:text-[10px] sm:text-xs font-semibold uppercase tracking-wider sm:tracking-widest text-cyan-300 font-mono max-w-full">
               <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse shrink-0" />
-              <span className="truncate sm:whitespace-normal">Next-Gen Medical AI Diagnostic Workspace</span>
+              <span className="truncate pr-2 sm:pr-0 sm:whitespace-normal">Next-Gen Medical AI Diagnostic Workspace</span>
             </div>
 
             <div className="space-y-4 max-w-2xl">
