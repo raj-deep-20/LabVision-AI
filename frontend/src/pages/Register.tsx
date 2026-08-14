@@ -28,14 +28,14 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-[#060A12] text-slate-100 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 bg-[#060A12] text-slate-100 relative overflow-hidden">
       {/* Background Lighting Orbs */}
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-cyan-600/15 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-4xl grid md:grid-cols-2 rounded-3xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 shadow-2xl overflow-hidden relative z-10">
         {/* Hero Branding Section */}
-        <div className="p-8 md:p-12 bg-gradient-to-br from-cyan-950/50 via-slate-900/80 to-indigo-900/40 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800/80 force-light-text">
+        <div className="p-6 sm:p-8 md:p-12 bg-gradient-to-br from-cyan-950/50 via-slate-900/80 to-indigo-900/40 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800/80 force-light-text">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-6">
               <FiShield /> Clinician Onboarding
@@ -55,7 +55,7 @@ export default function Register() {
         </div>
 
         {/* Form Section */}
-        <div className="p-8 md:p-12 flex flex-col justify-center">
+        <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center">
           <h2 className="text-xl font-bold text-white mb-2">Create practitioner account</h2>
           <p className="text-xs text-slate-400 mb-6">Fill in your profile details to gain access</p>
 
