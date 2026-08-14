@@ -20,6 +20,8 @@ import {
   FiActivity,
   FiLayers,
   FiHelpCircle,
+  FiMenu,
+  FiX,
 } from "react-icons/fi";
 
 import { useTheme } from "../context/ThemeContext";
@@ -115,6 +117,7 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Carousel autoplay timer
   useEffect(() => {
@@ -136,10 +139,10 @@ export default function Home() {
   return (
     <div className="min-h-screen space-y-16 lg:space-y-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* 1. Floating Glass Navbar */}
-      <header className="sticky top-4 z-40 px-4 rounded-2xl border border-slate-800/80 bg-slate-900/70 backdrop-blur-2xl shadow-2xl px-5 py-3.5 flex items-center justify-between transition-all">
+      <header className="sticky top-4 z-40 rounded-2xl border border-slate-800/80 bg-slate-900/70 backdrop-blur-2xl shadow-2xl px-4 py-3 sm:px-5 sm:py-3.5 flex items-center justify-between transition-all">
         {/* Brand Logo */}
         <div className="flex items-center gap-3">
-          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 text-xs font-black text-white shadow-lg shadow-cyan-500/25">
+          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 text-xs font-black text-white shadow-lg shadow-cyan-500/25 shrink-0">
             LV
             <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-cyan-400 ring-2 ring-slate-900" />
           </div>
@@ -177,8 +180,8 @@ export default function Home() {
           </a>
         </nav>
 
-        {/* Right Action Controls */}
-        <div className="flex items-center gap-3">
+        {/* Right Action Controls - Desktop Only */}
+        <div className="hidden md:flex items-center gap-3">
           {/* Theme Toggle Button */}
           <button
             type="button"
@@ -204,7 +207,82 @@ export default function Home() {
             <FiArrowRight size={14} />
           </Link>
         </div>
+
+        {/* Mobile Header Controls */}
+        <div className="flex md:hidden items-center gap-2">
+          {/* Theme Toggle Button */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            title={`Switch to ${theme === "dark" ? "Light" : "Dark"} mode`}
+            className="flex items-center justify-center h-9 w-9 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
+          >
+            {theme === "dark" ? <FiSun size={16} className="text-amber-400" /> : <FiMoon size={16} className="text-indigo-400" />}
+          </button>
+
+          {/* Menu Button */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex items-center justify-center h-9 w-9 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <FiX size={18} /> : <FiMenu size={18} />}
+          </button>
+        </div>
       </header>
+
+      {/* Mobile Dropdown Menu Panel */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed top-20 inset-x-4 z-40 rounded-2xl border border-slate-800/90 bg-slate-900/95 backdrop-blur-2xl p-5 shadow-2xl flex flex-col gap-4 animate-fadeIn">
+          <a
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
+            href="#overview"
+          >
+            Overview
+          </a>
+          <a
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
+            href="#carousel"
+          >
+            Diagnostics
+          </a>
+          <a
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
+            href="#platform"
+          >
+            Platform
+          </a>
+          <a
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
+            href="#faq"
+          >
+            FAQ
+          </a>
+
+          <div className="flex flex-col gap-3 pt-2">
+            <Link
+              to="/login"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-center py-2.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-900 text-sm font-bold text-slate-300 hover:text-cyan-300 transition-colors"
+            >
+              Sign in
+            </Link>
+            <Link
+              to="/register"
+              onClick={() => setMobileMenuOpen(false)}
+              className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 py-2.5 text-sm font-bold text-white shadow-lg shadow-cyan-500/25 transition-all hover:from-cyan-400 hover:to-indigo-500"
+            >
+              Register
+              <FiArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* 2. Redesigned Asymmetric Split Hero Section */}
       <section id="overview" className="relative overflow-hidden rounded-[2.5rem] border border-slate-800/80 bg-slate-900/60 backdrop-blur-xl shadow-2xl p-6 sm:p-10 lg:p-14">
@@ -215,9 +293,9 @@ export default function Home() {
         <div className="relative grid gap-10 lg:grid-cols-[1.15fr_0.85fr] items-center">
           {/* Left Hero Content */}
           <div className="space-y-7">
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan-300 font-mono">
-              <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-              Next-Gen Medical AI Diagnostic Workspace
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 sm:px-4 sm:py-1.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider sm:tracking-widest text-cyan-300 font-mono max-w-full">
+              <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse shrink-0" />
+              <span className="truncate sm:whitespace-normal">Next-Gen Medical AI Diagnostic Workspace</span>
             </div>
 
             <div className="space-y-4 max-w-2xl">
