@@ -743,7 +743,7 @@ export default function Home() {
 
         <div className="pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} LabVision AI Inc. All rights reserved.</p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-6 gap-y-2">
             <a href="#privacy" className="hover:text-slate-400 transition-colors">
               Privacy Policy
             </a>
