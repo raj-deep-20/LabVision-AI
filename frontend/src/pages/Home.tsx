@@ -215,7 +215,7 @@ export default function Home() {
             type="button"
             onClick={toggleTheme}
             title={`Switch to ${theme === "dark" ? "Light" : "Dark"} mode`}
-            className="flex items-center justify-center h-9 w-9 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
+            className="theme-toggle-btn flex items-center justify-center h-9 w-9 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
           >
             {theme === "dark" ? <FiSun size={16} className="text-amber-400" /> : <FiMoon size={16} className="text-indigo-400" />}
           </button>
@@ -224,7 +224,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex items-center justify-center h-9 w-9 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
+            className="menu-toggle-btn flex items-center justify-center h-9 w-9 rounded-xl border border-slate-800 bg-slate-950/60 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <FiX size={18} /> : <FiMenu size={18} />}
@@ -234,31 +234,31 @@ export default function Home() {
 
       {/* Mobile Dropdown Menu Panel */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed top-20 px-4 inset-x-4 z-40 rounded-2xl border border-slate-800/90 bg-slate-900/95 backdrop-blur-2xl p-5 shadow-2xl flex flex-col gap-4 animate-fadeIn">
+        <div className="mobile-menu-panel md:hidden fixed top-20 px-4 inset-x-4 z-40 rounded-2xl border border-slate-800/90 bg-slate-900/95 backdrop-blur-2xl p-5 shadow-2xl flex flex-col gap-4 animate-fadeIn">
           <a
             onClick={() => setMobileMenuOpen(false)}
-            className="text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
+            className="mobile-menu-link text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
             href="#overview"
           >
             Overview
           </a>
           <a
             onClick={() => setMobileMenuOpen(false)}
-            className="text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
+            className="mobile-menu-link text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
             href="#carousel"
           >
             Diagnostics
           </a>
           <a
             onClick={() => setMobileMenuOpen(false)}
-            className="text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
+            className="mobile-menu-link text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
             href="#platform"
           >
             Platform
           </a>
           <a
             onClick={() => setMobileMenuOpen(false)}
-            className="text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
+            className="mobile-menu-link text-sm font-semibold text-slate-300 hover:text-cyan-400 py-2 border-b border-slate-800/60"
             href="#faq"
           >
             FAQ
