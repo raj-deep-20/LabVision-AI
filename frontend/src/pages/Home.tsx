@@ -20,7 +20,6 @@ import {
   FiHelpCircle,
   FiMenu,
   FiX,
-  FiVideo,
   FiArrowUpRight,
 } from "react-icons/fi";
 
@@ -291,7 +290,7 @@ export default function Home() {
           <div className="space-y-6 max-w-xl">
             {/* Eyebrow Tag matching theme image */}
             <div className="text-xs sm:text-sm font-mono font-black uppercase tracking-[0.25em] text-[#386600] dark:text-[#8CED00]">
-              VACCINE RESEARCH LABORATORY
+              LabVision AI
             </div>
 
             {/* Main Headline matching theme image */}
