@@ -1,26 +1,89 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#090d16"/>
-      <stop offset="100%" stop-color="#0f172a"/>
+    <linearGradient id="bgGlow1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F0C1B"/>
+      <stop offset="50%" stop-color="#161328"/>
+      <stop offset="100%" stop-color="#0B0914"/>
     </linearGradient>
-    <radialGradient id="cellGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    <radialGradient id="rbcGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E11D48" stop-opacity="0.85"/>
+      <stop offset="70%" stop-color="#BE123C" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#881337" stop-opacity="0.1"/>
+    </radialGradient>
+    <radialGradient id="wbcGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#818CF8" stop-opacity="0.9"/>
+      <stop offset="65%" stop-color="#4F46E5" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#312E81" stop-opacity="0.2"/>
     </radialGradient>
   </defs>
-  <rect width="800" height="450" fill="url(#bg1)"/>
-  <circle cx="200" cy="180" r="45" fill="#f43f5e" opacity="0.75"/>
-  <circle cx="320" cy="240" r="50" fill="#f43f5e" opacity="0.8"/>
-  <circle cx="480" cy="160" r="48" fill="#f43f5e" opacity="0.7"/>
-  <circle cx="620" cy="260" r="42" fill="#f43f5e" opacity="0.8"/>
-  <circle cx="380" cy="130" r="60" fill="#6366f1" opacity="0.85"/>
-  <circle cx="380" cy="130" r="25" fill="#312e81"/>
-  <!-- AI Overlay Boxes -->
-  <rect x="145" y="125" width="110" height="110" fill="none" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6,4"/>
-  <text x="150" y="120" fill="#06b6d4" font-family="monospace" font-size="12" font-weight="bold">RBC #102 [99.4%]</text>
-  <rect x="310" y="60" width="140" height="140" fill="none" stroke="#6366f1" stroke-width="2.5"/>
-  <text x="315" y="55" fill="#818cf8" font-family="monospace" font-size="13" font-weight="bold font-mono">WBC #044 [SEGMENTED]</text>
-  <!-- Grid overlay -->
-  <path d="M0 150 L800 150 M0 300 L800 300 M266 0 L266 450 M533 0 L533 450" stroke="#1e293b" stroke-width="1" opacity="0.5"/>
+
+  <!-- Dark Microscope Field Background -->
+  <rect width="800" height="450" fill="url(#bgGlow1)"/>
+
+  <!-- Microscopic Grid Reticle -->
+  <g stroke="#334155" stroke-width="0.75" opacity="0.3" stroke-dasharray="4,4">
+    <line x1="0" y1="90" x2="800" y2="90"/>
+    <line x1="0" y1="180" x2="800" y2="180"/>
+    <line x1="0" y1="270" x2="800" y2="270"/>
+    <line x1="0" y1="360" x2="800" y2="360"/>
+    <line x1="160" y1="0" x2="160" y2="450"/>
+    <line x1="320" y1="0" x2="320" y2="450"/>
+    <line x1="480" y1="0" x2="480" y2="450"/>
+    <line x1="640" y1="0" x2="640" y2="450"/>
+  </g>
+
+  <!-- Red Blood Cells (RBCs) -->
+  <circle cx="160" cy="180" r="42" fill="url(#rbcGlow)" stroke="#F43F5E" stroke-width="1.5"/>
+  <circle cx="160" cy="180" r="14" fill="#881337" opacity="0.5"/>
+
+  <circle cx="280" cy="270" r="46" fill="url(#rbcGlow)" stroke="#F43F5E" stroke-width="1.5"/>
+  <circle cx="280" cy="270" r="16" fill="#881337" opacity="0.5"/>
+
+  <circle cx="510" cy="150" r="44" fill="url(#rbcGlow)" stroke="#F43F5E" stroke-width="1.5"/>
+  <circle cx="510" cy="150" r="15" fill="#881337" opacity="0.5"/>
+
+  <circle cx="650" cy="280" r="40" fill="url(#rbcGlow)" stroke="#F43F5E" stroke-width="1.5"/>
+  <circle cx="650" cy="280" r="12" fill="#881337" opacity="0.5"/>
+
+  <!-- White Blood Cell (WBC - Neutrophil) -->
+  <circle cx="390" cy="190" r="62" fill="url(#wbcGlow)" stroke="#A5B4FC" stroke-width="2"/>
+  <!-- Multi-lobed nucleus -->
+  <path d="M370 170 Q385 155 400 170 Q415 185 410 205 Q390 220 370 200 Z" fill="#1E1B4B" stroke="#6366F1" stroke-width="2"/>
+  <circle cx="415" cy="190" r="12" fill="#1E1B4B" stroke="#6366F1" stroke-width="1.5"/>
+
+  <!-- Platelets -->
+  <circle cx="230" cy="110" r="8" fill="#38BDF8" opacity="0.9"/>
+  <circle cx="470" cy="290" r="9" fill="#38BDF8" opacity="0.9"/>
+  <circle cx="580" cy="110" r="7" fill="#38BDF8" opacity="0.9"/>
+
+  <!-- Computer Vision Bounding Boxes -->
+  <!-- RBC Box 1 -->
+  <rect x="105" y="125" width="110" height="110" fill="none" stroke="#8CED00" stroke-width="2" stroke-dasharray="4,3" rx="8"/>
+  <rect x="105" y="103" width="110" height="22" fill="#8CED00" rx="4"/>
+  <text x="110" y="118" fill="#0F0C1B" font-family="monospace" font-size="11" font-weight="900">RBC #102 [99.4%]</text>
+
+  <!-- WBC Box -->
+  <rect x="315" y="115" width="150" height="150" fill="none" stroke="#00E5D1" stroke-width="2.5" rx="8"/>
+  <rect x="315" y="91" width="150" height="24" fill="#00E5D1" rx="4"/>
+  <text x="320" y="107" fill="#0F0C1B" font-family="monospace" font-size="11" font-weight="900">WBC NEUT #04 [99.8%]</text>
+
+  <!-- Platelet Box -->
+  <rect x="215" y="95" width="30" height="30" fill="none" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="215" y="90" fill="#38BDF8" font-family="monospace" font-size="9" font-weight="bold">PLT</text>
+
+  <!-- Clinical Overlay Metrics -->
+  <g transform="translate(20, 20)">
+    <rect width="210" height="58" fill="#0F0C1B" opacity="0.85" stroke="#334155" stroke-width="1" rx="10"/>
+    <text x="14" y="22" fill="#8CED00" font-family="monospace" font-size="11" font-weight="bold">FOV: 1000x Oil Immersion</text>
+    <text x="14" y="42" fill="#94A3B8" font-family="monospace" font-size="10">Quantification: 4.8M / µL</text>
+  </g>
+
+  <!-- Scale Bar (10 µm) -->
+  <g transform="translate(640, 390)">
+    <rect width="140" height="36" fill="#0F0C1B" opacity="0.85" stroke="#334155" rx="8"/>
+    <line x1="20" y1="22" x2="80" y2="22" stroke="#FFFFFF" stroke-width="3"/>
+    <line x1="20" y1="17" x2="20" y2="27" stroke="#FFFFFF" stroke-width="2"/>
+    <line x1="80" y1="17" x2="80" y2="27" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="90" y="25" fill="#FFFFFF" font-family="monospace" font-size="11" font-weight="bold">10 µm</text>
+  </g>
 </svg>

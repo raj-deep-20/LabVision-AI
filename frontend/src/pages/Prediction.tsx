@@ -75,31 +75,31 @@ export default function Prediction() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Header Card */}
-      <div className="p-6 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 shadow-xl flex items-center justify-between">
+      <div className="p-6 rounded-2xl bg-white/80 dark:bg-[#161324]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
-            <FiCpu size={26} />
+          <div className="p-3 rounded-xl bg-[#8CED00]/15 border border-[#8CED00]/30 text-[#6AB800] dark:text-[#8CED00]">
+            <FiCpu size={24} />
           </div>
           <div>
-            <div className="text-xs font-mono text-cyan-400 uppercase tracking-widest">
+            <div className="text-xs font-mono text-[#6AB800] dark:text-[#8CED00] uppercase tracking-widest font-bold">
               Neural Diagnostic Engine
             </div>
-            <h2 className="text-xl font-bold text-white">AI Cell Classification</h2>
+            <h2 className="text-xl font-extrabold text-[#2D2342] dark:text-white">AI Cell Classification</h2>
           </div>
         </div>
 
-        <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs font-semibold">
+        <span className="px-3 py-1 rounded-full bg-[#8CED00]/15 border border-[#8CED00]/30 text-[#6AB800] dark:text-[#8CED00] font-mono text-xs font-bold self-start sm:self-auto">
           Model: ResNet-TensorFlow v2.4
         </span>
       </div>
 
       {/* Input Form Card */}
-      <div className="relative rounded-3xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 p-8 shadow-2xl overflow-hidden">
+      <div className="relative rounded-3xl bg-white/80 dark:bg-[#161324]/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 p-6 sm:p-8 shadow-xl overflow-hidden">
         {loading && <div className="animate-scanline" />}
 
         <form onSubmit={handlePredict} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
               Sample Code
             </label>
             <div className="flex flex-col sm:flex-row gap-3">
@@ -109,13 +109,13 @@ export default function Prediction() {
                 onChange={(e) => setSampleCode(e.target.value)}
                 placeholder="e.g. SMP000001"
                 list="prediction-samples"
-                className="flex-1 w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/60 font-mono text-sm transition-all"
+                className="flex-1 w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-[#8CED00] font-mono text-sm"
                 required
               />
               <button
                 type="button"
                 onClick={fetchSamples}
-                className="px-4 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200 flex items-center justify-center gap-2 w-full sm:w-auto shrink-0"
+                className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center gap-2 w-full sm:w-auto shrink-0 font-semibold text-xs"
               >
                 <FiRefreshCw className={refreshing ? "animate-spin" : ""} />
                 <span>Refresh</span>
@@ -123,9 +123,9 @@ export default function Prediction() {
               <button
                 type="submit"
                 disabled={loading}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-sm shadow-lg shadow-cyan-500/20 transition-all duration-200 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 w-full sm:w-auto"
+                className="btn-theme-lime px-6 py-2.5 text-slate-900 font-extrabold text-sm shadow-md transition-all duration-200 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 w-full sm:w-auto rounded-xl"
               >
-                <FiCpu size={18} />
+                <FiCpu size={16} />
                 <span>{loading ? "Analyzing..." : "Execute AI Prediction"}</span>
               </button>
             </div>
@@ -134,9 +134,10 @@ export default function Prediction() {
                 <option key={sample.sample_code} value={sample.sample_code} />
               ))}
             </datalist>
-            <div className="mt-3 rounded-2xl border border-slate-800 bg-slate-950/40 p-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Sample Registry</p>
-              <div className="max-h-40 overflow-auto space-y-2 pr-1">
+
+            <div className="mt-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 p-4">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Sample Registry</p>
+              <div className="max-h-36 overflow-auto space-y-1.5 pr-1">
                 {samples.map((sample) => {
                   const code = sample.sample_code;
                   return (
@@ -144,47 +145,47 @@ export default function Prediction() {
                       key={code}
                       type="button"
                       onClick={() => setSampleCode(code)}
-                      className="w-full flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-2 text-left text-sm text-slate-200 hover:border-cyan-500/40 hover:bg-slate-800/70"
+                      className="w-full flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 px-3 py-2 text-left text-sm text-slate-700 dark:text-slate-200 hover:border-[#8CED00]"
                     >
-                      <span className="flex items-center gap-2 font-mono">
-                        <FiTag className="text-slate-500" />
+                      <span className="flex items-center gap-2 font-mono text-xs text-[#6AB800] dark:text-[#8CED00] font-bold">
+                        <FiTag className="text-slate-400" />
                         {code}
                       </span>
-                      <span className="text-xs text-slate-400 font-mono">{sample.status}</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">{sample.status}</span>
                     </button>
                   );
                 })}
-                {!samples.length && <p className="text-sm text-slate-400">No samples available yet.</p>}
+                {!samples.length && <p className="text-xs text-slate-400">No samples available yet.</p>}
               </div>
             </div>
           </div>
 
           {message && (
-            <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-mono font-medium">
+            <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-500 dark:text-rose-300 text-xs font-mono font-medium">
               {message}
             </div>
           )}
         </form>
       </div>
 
-      {/* Prediction Output Results Display */}
+      {/* Prediction Output Results */}
       {result && (
-        <div className="rounded-3xl bg-slate-900/70 backdrop-blur-xl border border-cyan-500/30 p-8 shadow-2xl space-y-6 relative overflow-hidden">
-          {/* Top Status Banner */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+        <div className="rounded-3xl bg-white/90 dark:bg-[#161324]/90 backdrop-blur-xl border border-[#8CED00]/40 p-6 sm:p-8 shadow-xl space-y-6 relative overflow-hidden">
+          {/* Status Banner */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
             <div>
-              <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-widest font-bold">
                 Diagnostic Prediction Outcome
               </span>
               <div className="flex items-center gap-3 mt-1">
-                <h3 className="text-2xl font-black text-white tracking-tight">
+                <h3 className="text-2xl font-extrabold text-[#2D2342] dark:text-white tracking-tight">
                   {result.disease}
                 </h3>
                 <span
                   className={`px-3 py-1 rounded-full font-mono text-xs font-bold border ${
                     isPositive
-                      ? "bg-rose-500/15 border-rose-500/40 text-rose-400"
-                      : "bg-emerald-500/15 border-emerald-500/40 text-emerald-400"
+                      ? "bg-rose-500/15 border-rose-500/40 text-rose-500 dark:text-rose-400"
+                      : "bg-emerald-500/15 border-emerald-500/40 text-emerald-600 dark:text-emerald-400"
                   }`}
                 >
                   {isPositive ? (
@@ -204,56 +205,51 @@ export default function Prediction() {
             <button
               onClick={() => handleDownloadReport(sampleCode)}
               disabled={downloading}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 self-start sm:self-auto"
+              className="btn-theme-cyan px-5 py-2.5 text-slate-900 font-extrabold text-sm shadow-md transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 self-start sm:self-auto rounded-xl"
             >
               <FiDownload size={16} />
-              <span>{downloading ? "Generating PDF..." : "Download PDF Clinical Report"}</span>
+              <span>{downloading ? "Generating PDF..." : "Download PDF Report"}</span>
             </button>
           </div>
 
           {/* Metrics Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {/* Confidence Metric Card */}
-            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
-              <span className="text-[11px] font-mono text-slate-400 uppercase">Confidence</span>
-              <p className="text-xl font-bold font-mono text-cyan-400">
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 space-y-1">
+              <span className="text-[10px] font-mono text-slate-500 uppercase font-bold">Confidence</span>
+              <p className="text-xl font-extrabold font-mono text-[#6AB800] dark:text-[#8CED00]">
                 {(result.confidence * 100).toFixed(1)}%
               </p>
             </div>
 
-            {/* RBC Count Metric */}
-            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
-              <span className="text-[11px] font-mono text-slate-400 uppercase">RBC Count</span>
-              <p className="text-xl font-bold font-mono text-slate-100">
-                {result.rbc_count.toLocaleString()} <span className="text-xs font-normal text-slate-500">/µL</span>
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 space-y-1">
+              <span className="text-[10px] font-mono text-slate-500 uppercase font-bold">RBC Count</span>
+              <p className="text-xl font-extrabold font-mono text-[#2D2342] dark:text-slate-100">
+                {result.rbc_count.toLocaleString()} <span className="text-xs font-normal text-slate-400">/µL</span>
               </p>
             </div>
 
-            {/* WBC Count Metric */}
-            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
-              <span className="text-[11px] font-mono text-slate-400 uppercase">WBC Count</span>
-              <p className="text-xl font-bold font-mono text-slate-100">
-                {result.wbc_count.toLocaleString()} <span className="text-xs font-normal text-slate-500">/µL</span>
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 space-y-1">
+              <span className="text-[10px] font-mono text-slate-500 uppercase font-bold">WBC Count</span>
+              <p className="text-xl font-extrabold font-mono text-[#2D2342] dark:text-slate-100">
+                {result.wbc_count.toLocaleString()} <span className="text-xs font-normal text-slate-400">/µL</span>
               </p>
             </div>
 
-            {/* Platelets Metric */}
-            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
-              <span className="text-[11px] font-mono text-slate-400 uppercase">Platelets</span>
-              <p className="text-xl font-bold font-mono text-slate-100">
-                {result.platelet_count.toLocaleString()} <span className="text-xs font-normal text-slate-500">/µL</span>
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 space-y-1">
+              <span className="text-[10px] font-mono text-slate-500 uppercase font-bold">Platelets</span>
+              <p className="text-xl font-extrabold font-mono text-[#2D2342] dark:text-slate-100">
+                {result.platelet_count.toLocaleString()} <span className="text-xs font-normal text-slate-400">/µL</span>
               </p>
             </div>
           </div>
 
-          {/* Metadata Footer Details */}
-          <div className="p-4 rounded-2xl bg-slate-950/40 border border-slate-800/80 flex flex-wrap items-center justify-between text-xs font-mono text-slate-400 gap-2">
+          <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 gap-2">
             <div className="flex items-center gap-2">
-              <FiLayers className="text-indigo-400" />
-              <span>Image Quality Rating: <strong className="text-slate-200">{result.image_quality}</strong></span>
+              <FiLayers className="text-[#00D8C9]" />
+              <span>Image Quality Rating: <strong className="text-slate-800 dark:text-slate-200">{result.image_quality}</strong></span>
             </div>
             <div>
-              <span>Sample Code: <strong className="text-cyan-400">{result.sample_code}</strong></span>
+              <span>Sample Code: <strong className="text-[#6AB800] dark:text-[#8CED00]">{result.sample_code}</strong></span>
             </div>
           </div>
         </div>
