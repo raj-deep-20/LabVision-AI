@@ -40,7 +40,7 @@ LabVision AI provides a single unified workspace to solve these issues:
 | | Security | JWT (python-jose), bcrypt (passlib) | Bearer auth & password hashing |
 | **AI / CV** | ML Inference | TensorFlow / Keras | CNN model execution (`trained_model.h5`) |
 | | Image Processing | OpenCV, Pillow, NumPy | Image transformation, array math, cell contours |
-| **Reporting** | PDF Generation | ReportLab | Programmatic canvas rendering of PDF reports |
+| | Reporting | PDF Generation | ReportLab | Programmatic canvas rendering of PDF reports |
 | **Database** | Database Engine | PostgreSQL | Relational storage for transaction integrity |
 
 ---
@@ -52,26 +52,26 @@ The application implements a classic **Three-Tier Architecture** consisting of a
 ```mermaid
 flowchart TB
     subgraph Client ["Client Layer (Vite + React)"]
-        UI[Glassmorphism UI Pages]
-        AC[Axios API Client]
-        TC[Theme / Auth Context Providers]
+        UI["Glassmorphism UI Pages"]
+        AC["Axios API Client"]
+        TC["Theme / Auth Context Providers"]
     end
 
     subgraph Server ["Server Layer (FastAPI ASGI)"]
-        routes[API Controllers / Routers]
-        auth[JWT Auth & Password Hash]
+        routes["API Controllers / Routers"]
+        auth["JWT Auth & Password Hash"]
         
         subgraph Engine ["Hybrid Diagnostics Engine"]
-            CV[OpenCV Cell Counter]
-            TF[TensorFlow ResNet CNN]
+            CV["OpenCV Cell Counter"]
+            TF["TensorFlow ResNet CNN"]
         end
         
-        pdf[ReportLab PDF Service]
+        pdf["ReportLab PDF Service"]
     end
 
     subgraph Storage ["Storage Layer"]
-        DB[(PostgreSQL Database)]
-        FS[(Local File Cache /uploads & /reports)]
+        DB[("PostgreSQL Database")]
+        FS[("Local File Cache (/uploads & /reports)")]
     end
 
     UI --> TC
@@ -104,7 +104,7 @@ erDiagram
     USERS {
         int id PK
         string name
-        string email UK
+        string email
         string password
         string role
         datetime created_at
@@ -112,12 +112,12 @@ erDiagram
     
     PATIENTS {
         int id PK
-        string patient_id UK "PATXXXXXX"
+        string patient_id "PATXXXXXX"
         string name
         int age
         string gender
         string blood_group
-        string phone UK
+        string phone
         string doctor
         date visit_date
         datetime created_at
@@ -125,8 +125,8 @@ erDiagram
 
     SAMPLES {
         int id PK
-        string sample_id UK "SMPXXXXXX"
-        int patient_id FK "Cascade Delete"
+        string sample_id "SMPXXXXXX"
+        int patient_id FK
         string sample_type
         string status
         date collection_date
@@ -136,14 +136,14 @@ erDiagram
 
     IMAGES {
         int id PK
-        int sample_id FK "Cascade Delete"
+        int sample_id FK
         string image_name
         string image_path
     }
 
     PREDICTIONS {
         int id PK
-        int image_id FK "Unique constraint"
+        int image_id FK
         string disease
         float confidence
         string image_quality
@@ -154,7 +154,7 @@ erDiagram
 
     REPORTS {
         int id PK
-        int prediction_id FK "Unique / Cascade Delete"
+        int prediction_id FK
         string remarks
     }
 
@@ -244,7 +244,7 @@ sequenceDiagram
     Back->>DB: Save Specimen (Assigns SMP000001)
     Back-->>Front: Sample created
     
-    Tech->>Front: 3. Capture & Upload microscopy image file
+    Tech->>Front: 3. Capture and Upload microscopy image file
     Front->>Back: POST /images/upload/SMP000001 (Multipart Form)
     Back->>Back: Save image to local disk cache
     Back->>DB: Write Image record linked to SMP000001
@@ -252,16 +252,16 @@ sequenceDiagram
     
     Tech->>Front: 4. Execute AI Diagnostic
     Front->>Back: POST /predictions/SMP000001
-    Back->>CV: Check image blur/exposure & count cells
-    CV-->>Back: Returns RBC/WBC/Platelet count & Quality
-    Back->>TF: Resize image & predict parasite classification
+    Back->>CV: Check image blur/exposure and count cells
+    CV-->>Back: Returns RBC/WBC/Platelet count and Quality
+    Back->>TF: Resize image and predict parasite classification
     TF-->>Back: Returns Malaria probability score
     Back->>DB: Save Prediction details
-    Back-->>Front: Prediction results (Counts + Confidence)
+    Back-->>Front: Prediction results (Counts and Confidence)
     
     Tech->>Front: 5. Download PDF Report
     Front->>Back: GET /reports/SMP000001
-    Back->>Back: Fetch records & compile PDF using ReportLab
+    Back->>Back: Fetch records and compile PDF using ReportLab
     Back-->>Front: Return PDF stream
     Front->>Tech: Initiates browser download
 ```
