@@ -1,6 +1,6 @@
-# LabVision AI — Clinical Pathology & Neural Cell Workspace
+# LabVision AI — Your Diagnostic AI Assistant
 
-LabVision AI is a production-grade clinical imaging workspace that connects patient intake, specimen tracking, microscopic smear uploads, neural diagnostics (malaria parasite screening), automated cell counting, and official PDF report generation into a unified laboratory pipeline. 
+LabVision AI is a clinical imaging workspace that connects patient intake, specimen tracking, microscopic smear uploads, neural diagnostics (malaria parasite screening), automated cell counting, and official PDF report generation into a unified laboratory pipeline. 
 
 The project features a **React 19 + TypeScript** frontend with a responsive glassmorphism UI, a **FastAPI** backend, and a hybrid processing engine combining **TensorFlow CNN inference** and **OpenCV computer vision**.
 
