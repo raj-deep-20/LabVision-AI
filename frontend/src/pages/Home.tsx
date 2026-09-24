@@ -39,7 +39,7 @@ const slides = [
     description:
       "Automated computer-vision detection of red blood cells, white blood cells, and blood platelets from microscopic smears with bounding box confidence overlays.",
     image: slide1,
-    badge: "OpenCV + ResNet",
+    badge: "OpenCV + MobileNetV2",
     stats: { rbc: "4.8M /µL", wbc: "7.2K /µL", platelets: "245K /µL", quality: "Good" },
   },
   {
@@ -68,7 +68,7 @@ const faqs = [
   {
     question: "How does the LabVision AI classification engine work?",
     answer:
-      "LabVision AI combines OpenCV computer vision image processing for cell boundary segmentation (RBC, WBC, platelet counts) with a pre-trained ResNet deep learning model to classify blood smear slides for conditions such as Malaria (+ve / -ve) with high confidence scores.",
+      "LabVision AI combines OpenCV computer vision image processing for cell boundary segmentation (RBC, WBC, platelet counts) with a pre-trained MobileNetV2 deep learning model to classify blood smear slides for conditions such as Malaria (+ve / -ve) with high confidence scores.",
   },
   {
     question: "What microscopy slide image formats are supported?",
@@ -299,7 +299,7 @@ export default function Home() {
                 You AI Laboratory Assistant
               </h1>
               <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed max-w-lg font-bold">
-                Streamline pathology operations with real-time patient registration, smear slide ingestion, ResNet classification, and automated PDF report generation.
+                Streamline pathology operations with real-time patient registration, smear slide ingestion, AI diagnostics, and automated PDF report generation.
               </p>
             </div>
 
