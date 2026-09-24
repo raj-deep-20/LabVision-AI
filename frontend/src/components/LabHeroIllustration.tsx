@@ -39,7 +39,7 @@ export default function LabHeroIllustration() {
             </span>
           </div>
           <span className="px-2.5 py-0.5 rounded-md bg-[#8CED00]/20 text-[#2D5400] dark:text-[#8CED00] border border-[#8CED00]/40 font-mono text-[10px] font-extrabold">
-            ResNet v2.4 Active
+            MobileNet v2.4 Active
           </span>
         </div>
 
