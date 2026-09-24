@@ -68,10 +68,10 @@ def predict_image(db: Session, sample_code: str):
     prediction = model.predict(img, verbose=0)[0][0]
 
     if prediction > 0.5:
-        disease = "Malaria +ve"
+        disease = "Malaria -ve"
         confidence = float(prediction)
     else:
-        disease = "Malaria -ve"
+        disease = "Malaria +ve"
         confidence = float(1 - prediction)
 
     # ------------------------
