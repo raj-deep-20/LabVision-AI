@@ -34,7 +34,7 @@ export default function LabHeroIllustration() {
         <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-[#8CED00] animate-ping" />
-            <span className="text-xs font-mono font-extrabold text-[#1A132B] dark:text-white uppercase tracking-wider">
+            <span className="text-xs font-mono font-extrabold text-[#1A132B] dark:text-[#8CED00] uppercase tracking-wider">
               NEURAL SMEAR TELEMETRY
             </span>
           </div>
@@ -43,7 +43,7 @@ export default function LabHeroIllustration() {
           </span>
         </div>
 
-        {/* 3D Flask & Microscope Vector SVG Graphic */}
+        {/* Professional Imaging Microscope Graphic */}
         <div className="relative overflow-hidden rounded-2xl bg-slate-100 dark:bg-gradient-to-b dark:from-[#0F0C1B] dark:via-[#161328] dark:to-[#0B0914] p-4 border border-slate-200 dark:border-slate-800">
           <div className="animate-scanline" />
           <svg
@@ -52,48 +52,76 @@ export default function LabHeroIllustration() {
             className="w-full h-[220px] sm:h-[250px]"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {/* Laboratory Platform Base */}
-            <ellipse cx="200" cy="200" rx="160" ry="30" fill="#E2E8F0" className="dark:fill-[#1E1935]" stroke="#CBD5E1" strokeWidth="1.5" />
-            <ellipse cx="200" cy="195" rx="130" ry="22" fill="#CBD5E1" className="dark:fill-[#251F42]" stroke="#8CED00" strokeWidth="1.5" strokeDasharray="4,4" />
-
-            {/* Glowing Central Flask / Beaker Chamber */}
-            <path
-              d="M170 80 L150 160 A40 40 0 0 0 200 190 A40 40 0 0 0 250 160 L230 80 Z"
-              fill="url(#flaskFluid)"
-              stroke="#00E5D1"
-              strokeWidth="2.5"
-            />
-            {/* Flask Neck */}
-            <rect x="175" y="45" width="50" height="35" rx="4" fill="#E2E8F0" className="dark:fill-[#1E1935]" stroke="#00E5D1" strokeWidth="1.5" />
-            <line x1="170" y1="45" x2="230" y2="45" stroke="#00E5D1" strokeWidth="3" />
-
-            {/* Liquid Level & Bubbles */}
-            <ellipse cx="200" cy="140" rx="35" ry="8" fill="#8CED00" opacity="0.75" />
-            <circle cx="190" cy="120" r="4" fill="#8CED00" />
-            <circle cx="215" cy="105" r="3" fill="#00E5D1" />
-            <circle cx="198" cy="90" r="2.5" fill="#8CED00" />
-
-            {/* Orbital Atom Rings */}
-            <ellipse cx="200" cy="130" rx="90" ry="30" fill="none" stroke="#8CED00" strokeWidth="1.5" strokeDasharray="6,4" transform="rotate(-20 200 130)" />
-            <ellipse cx="200" cy="130" rx="90" ry="30" fill="none" stroke="#00E5D1" strokeWidth="1.5" strokeDasharray="6,4" transform="rotate(20 200 130)" />
-            <circle cx="280" cy="100" r="6" fill="#8CED00" className="animate-pulse" />
-            <circle cx="120" cy="150" r="5" fill="#00E5D1" className="animate-pulse" />
-
-            {/* Workstations */}
-            <rect x="50" y="140" width="70" height="45" rx="6" fill="#E2E8F0" className="dark:fill-[#1E1935]" stroke="#CBD5E1" />
-            <rect x="55" y="145" width="60" height="35" fill="#FFFFFF" className="dark:fill-[#0B0914]" rx="4" />
-            <path d="M60 165 L80 155 L100 170" stroke="#386600" className="dark:stroke-[#8CED00]" strokeWidth="2" fill="none" />
-
-            <rect x="280" y="140" width="70" height="45" rx="6" fill="#E2E8F0" className="dark:fill-[#1E1935]" stroke="#CBD5E1" />
-            <rect x="285" y="145" width="60" height="35" fill="#FFFFFF" className="dark:fill-[#0B0914]" rx="4" />
-            <circle cx="315" cy="162" r="10" fill="none" stroke="#007D71" className="dark:stroke-[#00E5D1]" strokeWidth="1.5" />
-
             <defs>
-              <linearGradient id="flaskFluid" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#00E5D1" stopOpacity="0.5" />
-                <stop offset="100%" stopColor="#8CED00" stopOpacity="0.8" />
+              <linearGradient id="metalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#00E5D1" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#8CED00" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="stageGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#8CED00" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#00E5D1" stopOpacity="0" />
               </linearGradient>
             </defs>
+
+            {/* Base & Platform */}
+            <path d="M110 205 C110 190, 290 190, 290 205 L280 215 L120 215 Z" fill="#E2E8F0" className="dark:fill-[#1E1935]" stroke="#CBD5E1" strokeWidth="1.5" />
+            <rect x="130" y="200" width="140" height="10" rx="3" fill="url(#metalGradient)" opacity="0.3" />
+
+            {/* Heavy Cast-Metal Microscope Stand / Curved Arm */}
+            <path d="M220 200 C220 160, 250 120, 235 80 C225 55, 195 50, 180 65 L190 85 C198 75, 215 75, 220 95 C228 125, 205 160, 205 200 Z" fill="url(#metalGradient)" stroke="#00E5D1" strokeWidth="1.5" />
+
+            {/* Coarse & Fine Focus Adjustment Knobs */}
+            <circle cx="218" cy="170" r="14" fill="#CBD5E1" className="dark:fill-[#251F42]" stroke="#00E5D1" strokeWidth="2" />
+            <circle cx="218" cy="170" r="8" fill="#E2E8F0" className="dark:fill-[#1E1935]" stroke="#8CED00" strokeWidth="1.5" />
+
+            {/* Transmitted Light Base Illuminator */}
+            <rect x="175" y="190" width="30" height="10" rx="2" fill="#E2E8F0" className="dark:fill-[#1E1935]" stroke="#00E5D1" strokeWidth="1.5" />
+            <ellipse cx="190" cy="190" rx="10" ry="3" fill="#8CED00" className="animate-pulse" />
+
+            {/* Vertical Light Beam */}
+            <polygon points="182,190 198,190 205,145 175,145" fill="url(#stageGlow)" opacity="0.8" />
+
+            {/* Mechanical Stage & Substage Condenser */}
+            <rect x="150" y="145" width="80" height="8" rx="2" fill="#1E293B" className="dark:fill-[#0B0914]" stroke="#00E5D1" strokeWidth="2" />
+            <path d="M180 153 L200 153 L195 165 L185 165 Z" fill="#CBD5E1" className="dark:fill-[#251F42]" stroke="#8CED00" strokeWidth="1" />
+
+            {/* Glass Slide & Clips */}
+            <rect x="165" y="142" width="50" height="3" rx="1" fill="#DFFBFF" stroke="#00E5D1" strokeWidth="1" />
+            <circle cx="190" cy="143.5" r="2" fill="#8CED00" className="animate-ping" />
+            <path d="M168 141 L173 141 L173 145" stroke="#8CED00" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M212 141 L207 141 L207 145" stroke="#8CED00" strokeWidth="1.5" strokeLinecap="round" />
+
+            {/* Revolving Objective Nosepiece & Objective Lenses */}
+            <circle cx="190" cy="110" r="12" fill="#CBD5E1" className="dark:fill-[#251F42]" stroke="#00E5D1" strokeWidth="1.5" />
+            {/* Active Objective (pointing down) */}
+            <rect x="186" y="118" width="8" height="20" rx="1.5" fill="url(#metalGradient)" stroke="#8CED00" strokeWidth="1.5" />
+            {/* Secondary Objectives (angled) */}
+            <rect x="172" y="112" width="7" height="15" rx="1" fill="#CBD5E1" className="dark:fill-[#251F42]" stroke="#00E5D1" strokeWidth="1" transform="rotate(35 172 112)" />
+            <rect x="201" y="112" width="7" height="15" rx="1" fill="#CBD5E1" className="dark:fill-[#251F42]" stroke="#00E5D1" strokeWidth="1" transform="rotate(-35 201 112)" />
+
+            {/* Microscope Head Assembly */}
+            <path d="M165 75 L200 75 L205 102 L170 102 Z" fill="#E2E8F0" className="dark:fill-[#1E1935]" stroke="#00E5D1" strokeWidth="2" />
+
+            {/* Binocular Eyepiece Tubes & Rubber Cups */}
+            <path d="M172 75 L155 48" stroke="#00E5D1" strokeWidth="5" strokeLinecap="round" />
+            <path d="M188 75 L171 48" stroke="#00E5D1" strokeWidth="5" strokeLinecap="round" />
+
+            <rect x="148" y="40" width="12" height="10" rx="2" fill="#1E293B" className="dark:fill-[#0B0914]" stroke="#8CED00" strokeWidth="1.5" />
+            <rect x="164" y="40" width="12" height="10" rx="2" fill="#1E293B" className="dark:fill-[#0B0914]" stroke="#8CED00" strokeWidth="1.5" />
+
+            {/* Side Workstation Monitors / Data Cards */}
+            <g opacity="0.85">
+              <rect x="40" y="130" width="75" height="50" rx="8" fill="#E2E8F0" className="dark:fill-[#1E1935]" stroke="#CBD5E1" strokeWidth="1.5" />
+              <rect x="45" y="135" width="65" height="40" rx="5" fill="#FFFFFF" className="dark:fill-[#0B0914]" stroke="#00E5D1" strokeWidth="1" />
+              <path d="M52 160 L65 148 L78 155 L95 142" stroke="#8CED00" strokeWidth="2" fill="none" strokeLinecap="round" />
+            </g>
+
+            <g opacity="0.85">
+              <rect x="285" y="130" width="75" height="50" rx="8" fill="#E2E8F0" className="dark:fill-[#1E1935]" stroke="#CBD5E1" strokeWidth="1.5" />
+              <rect x="290" y="135" width="65" height="40" rx="5" fill="#FFFFFF" className="dark:fill-[#0B0914]" stroke="#00E5D1" strokeWidth="1" />
+              <circle cx="322" cy="155" r="12" fill="none" stroke="#00E5D1" strokeWidth="2" strokeDasharray="4,2" />
+              <circle cx="322" cy="155" r="4" fill="#8CED00" />
+            </g>
           </svg>
         </div>
 

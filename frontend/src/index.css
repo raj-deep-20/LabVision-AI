@@ -18,14 +18,14 @@
     overflow-x: hidden;
   }
 
-  /* Dark Mode Base Canvas */
+  /* Deep-ocean night canvas */
   .dark-mode {
-    background-color: #0B0A14;
-    color: #F8FAFC;
+    background-color: #071A26;
+    color: #E7F5F2;
     background-image: 
-      radial-gradient(circle at 15% 15%, rgba(140, 237, 0, 0.05) 0%, transparent 40%),
-      radial-gradient(circle at 85% 20%, rgba(0, 229, 209, 0.07) 0%, transparent 35%),
-      radial-gradient(circle at 50% 85%, rgba(22, 19, 36, 0.7) 0%, transparent 60%);
+      radial-gradient(circle at 15% 15%, rgba(244, 185, 66, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 85% 20%, rgba(65, 214, 195, 0.08) 0%, transparent 35%),
+      radial-gradient(circle at 50% 85%, rgba(7, 34, 48, 0.85) 0%, transparent 60%);
     background-attachment: fixed;
   }
 
@@ -339,4 +339,123 @@
 
 .animate-fadeIn {
   animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* ========================================================================== 
+   NIGHT MODE PALETTE
+   ========================================================================== */
+
+.dark-mode {
+  --night-canvas: #071A26;
+  --night-panel: #102B3A;
+  --night-panel-muted: #0B2230;
+  --night-border: #244A5A;
+  --night-ink: #E7F5F2;
+  --night-muted: #9CB9BE;
+  --night-amber: #F4B942;
+  --night-teal: #41D6C3;
+}
+
+.dark-mode .logo-lab-text,
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode .text-white,
+.dark-mode .text-slate-100,
+.dark-mode .text-slate-200,
+.dark-mode [class*="text-slate-100"],
+.dark-mode [class*="text-slate-200"] {
+  color: var(--night-ink) !important;
+}
+
+.dark-mode p,
+.dark-mode .text-slate-300,
+.dark-mode .text-slate-400,
+.dark-mode [class*="text-slate-300"],
+.dark-mode [class*="text-slate-400"] {
+  color: var(--night-muted) !important;
+}
+
+.dark-mode .text-slate-500,
+.dark-mode [class*="text-slate-500"] {
+  color: #7899A1 !important;
+}
+
+.dark-mode header,
+.dark-mode aside,
+.dark-mode nav,
+.dark-mode footer,
+.dark-mode [class*="dark:bg-[#161324]"],
+.dark-mode [class*="dark:bg-slate-900"] {
+  background-color: rgba(16, 43, 58, 0.92) !important;
+  border-color: var(--night-border) !important;
+}
+
+.dark-mode [class*="dark:bg-slate-950"],
+.dark-mode [class*="dark:bg-slate-800"] {
+  background-color: var(--night-panel-muted) !important;
+  border-color: var(--night-border) !important;
+}
+
+.dark-mode [class*="dark:border-slate-800"],
+.dark-mode [class*="dark:border-slate-700"] {
+  border-color: var(--night-border) !important;
+}
+
+.dark-mode [class*="bg-[#0B0A14]"],
+.dark-mode [class*="bg-[#060A12]"],
+.dark-mode [class*="bg-[#161324]"],
+.dark-mode .glass-panel {
+  background-color: var(--night-panel) !important;
+}
+
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea {
+  background-color: var(--night-panel-muted) !important;
+  border-color: var(--night-border) !important;
+  color: var(--night-ink) !important;
+}
+
+.dark-mode ::placeholder {
+  color: #7899A1 !important;
+}
+
+.dark-mode .btn-theme-lime,
+.dark-mode .btn-theme-cyan {
+  color: #08212A;
+}
+
+.dark-mode .btn-theme-lime {
+  background-color: var(--night-amber);
+  box-shadow: 0 4px 14px rgba(244, 185, 66, 0.28);
+}
+
+.dark-mode .btn-theme-cyan {
+  background-color: var(--night-teal);
+  box-shadow: 0 4px 14px rgba(65, 214, 195, 0.25);
+}
+
+.dark-mode .logo-vision-text,
+.dark-mode [class*="text-[#8CED00]"],
+.dark-mode [class*="hover:text-[#8CED00]"] {
+  color: var(--night-amber) !important;
+}
+
+.dark-mode [class*="text-[#00E5D1]"],
+.dark-mode [class*="text-[#00D8C9]"] {
+  color: var(--night-teal) !important;
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+  background: var(--night-canvas);
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: #315C6A;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: var(--night-amber);
 }
