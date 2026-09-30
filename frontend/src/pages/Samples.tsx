@@ -315,7 +315,7 @@ export default function Samples() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <tr className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   <th className="py-3.5 px-5">Sample Code</th>
                   <th className="py-3.5 px-5">Patient Code</th>
                   <th className="py-3.5 px-5">Specimen Type</th>
@@ -329,7 +329,7 @@ export default function Samples() {
                   const sCode = sample.sample_code || "SMP";
                   const pCode = sample.patient_code || "PAT";
                   return (
-                    <tr key={sCode} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                    <tr key={sCode} className="group hover:bg-slate-50 dark:hover:bg-white dark:hover:text-slate-900 transition-colors">
                       <td className="py-4 px-5 font-mono text-[#00D8C9] font-bold text-xs flex items-center gap-2">
                         <FiTag className="text-slate-400" />
                         <span>{sCode}</span>
@@ -337,16 +337,16 @@ export default function Samples() {
                       <td className="py-4 px-5 font-mono text-[#6AB800] dark:text-[#8CED00] font-bold text-xs">
                         {pCode}
                       </td>
-                      <td className="py-4 px-5 font-medium text-[#2D2342] dark:text-slate-200">
+                      <td className="py-4 px-5 font-medium text-[#2D2342] dark:text-slate-200 dark:group-hover:text-slate-900">
                         {sample.sample_type}
                       </td>
                       <td className="py-4 px-5">
                         {getStatusBadge(sample.status)}
                       </td>
-                      <td className="py-4 px-5 font-mono text-slate-500 dark:text-slate-400 text-xs">
+                      <td className="py-4 px-5 font-mono text-slate-500 dark:text-slate-400 dark:group-hover:text-slate-900 text-xs">
                         {sample.collection_date}
                       </td>
-                      <td className="py-4 px-5 text-slate-500 dark:text-slate-400 text-xs italic">
+                      <td className="py-4 px-5 text-slate-500 dark:text-slate-400 dark:group-hover:text-slate-900 text-xs italic">
                         {sample.remarks || "—"}
                       </td>
                     </tr>
