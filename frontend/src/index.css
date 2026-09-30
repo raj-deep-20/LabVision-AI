@@ -384,6 +384,10 @@
   color: #7899A1 !important;
 }
 
+.dark-mode .sample-table-row:hover .sample-hover-text {
+  color: #08212A !important;
+}
+
 .dark-mode header,
 .dark-mode aside,
 .dark-mode nav,

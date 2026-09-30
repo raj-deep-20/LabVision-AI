@@ -329,7 +329,7 @@ export default function Samples() {
                   const sCode = sample.sample_code || "SMP";
                   const pCode = sample.patient_code || "PAT";
                   return (
-                    <tr key={sCode} className="group hover:bg-slate-50 dark:hover:bg-white dark:hover:text-slate-900 transition-colors">
+                    <tr key={sCode} className="group sample-table-row hover:bg-slate-50 dark:hover:bg-white dark:hover:text-slate-900 transition-colors">
                       <td className="py-4 px-5 font-mono text-[#00D8C9] font-bold text-xs flex items-center gap-2">
                         <FiTag className="text-slate-400" />
                         <span>{sCode}</span>
@@ -337,16 +337,16 @@ export default function Samples() {
                       <td className="py-4 px-5 font-mono text-[#6AB800] dark:text-[#8CED00] font-bold text-xs">
                         {pCode}
                       </td>
-                      <td className="py-4 px-5 font-medium text-[#2D2342] dark:text-slate-200 dark:group-hover:text-slate-900">
+                      <td className="sample-hover-text py-4 px-5 font-medium text-[#2D2342] dark:text-slate-200 dark:group-hover:text-slate-900">
                         {sample.sample_type}
                       </td>
                       <td className="py-4 px-5">
                         {getStatusBadge(sample.status)}
                       </td>
-                      <td className="py-4 px-5 font-mono text-slate-500 dark:text-slate-400 dark:group-hover:text-slate-900 text-xs">
+                      <td className="sample-hover-text py-4 px-5 font-mono text-slate-500 dark:text-slate-400 dark:group-hover:text-slate-900 text-xs">
                         {sample.collection_date}
                       </td>
-                      <td className="py-4 px-5 text-slate-500 dark:text-slate-400 dark:group-hover:text-slate-900 text-xs italic">
+                      <td className="sample-hover-text py-4 px-5 text-slate-500 dark:text-slate-400 dark:group-hover:text-slate-900 text-xs italic">
                         {sample.remarks || "—"}
                       </td>
                     </tr>
